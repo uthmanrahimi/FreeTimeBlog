@@ -1,0 +1,75 @@
+﻿@model PostDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="my-3 my-md-5">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                @Model.Title
+            </h1>
+        </div>
+        <div class="row row-cards">
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <div class="card-subtitle">
+                                    <i class="fa fa-calendar"></i> @Model.CreatedOn
+                                </div>
+                                <div class="card-subtitle">
+                                    <i class="fa fa-eye"></i> 5025
+                                </div>
+                                <div class="card-subtitle">
+                                    <i class="fa fa-thumbs-o-up"></i> 100
+                                </div>
+
+                                <div class="selectize-control form-control multi">
+
+                                    <div class="selectize-input items not-full has-options has-items ">
+                                        <div class="item">c#</div>
+                                        <div class="item">ASP Core</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 d-flex align-items-center">
+
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fe fe-plus"></i> Add to Favorite</a>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" class="btn btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-wrap p-lg-6">
+
+                            @Html.Raw(Model.Description)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
