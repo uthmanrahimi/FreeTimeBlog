@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FreeTime.Web.Application.Core;
 using FreeTime.Web.Application.Extensions;
 using FreeTime.Web.Application.Infrastructures;
 using FreeTime.Web.Application.Models.Entities.Identity;
@@ -54,6 +55,7 @@ namespace FreeTime
                     SecurePolicy = CookieSecurePolicy.SameAsRequest
                 };
             });
+            services.Configure<BlogSettings>(Configuration.GetSection("Blog"));
             services.AddHealthChecks();
             services.AddRazorPages();
             services.AddControllersWithViews();
