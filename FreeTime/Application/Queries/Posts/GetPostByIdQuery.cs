@@ -5,6 +5,7 @@ namespace FreeTime.Web.Application.Queries.Posts
 {
     public class GetPostByIdQuery:IRequest<PostDto>
     {
+     
         public int Id { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace FreeTime.Web.Application.Models
         [Required]
         public string Slug { get; set; }
         [Required]
-        public string Tags { get; set; }
+        public string Tags { get; set; } = string.Empty;
         [Required]
         public string Title { get; set; }
     }

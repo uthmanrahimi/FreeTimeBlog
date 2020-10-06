@@ -11,7 +11,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col col-login mx-auto">
-                       
+                       <div class="text-left text-danger mb-6">
+                           @Html.ValidationSummary()
+                       </div>
                         <form class="card" asp-controller="security" asp-action="login" method="post">
                             <div class="card-body p-6">
                                 <div class="card-title">Login to your account</div>
@@ -29,7 +31,7 @@
                                 <div class="form-group">
                                     <label class="custom-control custom-checkbox">
                                         <input type="checkbox" asp-for="RememberMe" class="custom-control-input">
-                                        <span class="custom-control-label">Remember me</span>
+                                         <span class="custom-control-label">Remember me</span>
                                     </label>
                                 </div>
                                 <div class="form-footer">

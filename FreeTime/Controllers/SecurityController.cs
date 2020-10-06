@@ -37,7 +37,7 @@ namespace FreeTime.Web.Controllers
             }
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
             if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Blog");
 
             if (result.IsLockedOut)
             {
@@ -45,7 +45,7 @@ namespace FreeTime.Web.Controllers
                 return View(model);
             }
 
-            ModelState.AddModelError(string.Empty, "Login Failed");
+            ModelState.AddModelError(string.Empty, "Login Failed. UserName or Password is incorrect");
             return View(model);
         }
 
@@ -71,7 +71,7 @@ namespace FreeTime.Web.Controllers
                 // confirm code
                 //send email
                 await _signInManager.SignInAsync(user, false);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Blog");
             }
 
             foreach (var item in result.Errors)
@@ -81,6 +81,13 @@ namespace FreeTime.Web.Controllers
 
             return View(model);
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Blog");
         }
     }
 }

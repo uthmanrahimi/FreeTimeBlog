@@ -5,15 +5,12 @@ using FreeTime.Web.Application.Models.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace FreeTime
 {
@@ -31,10 +28,7 @@ namespace FreeTime
           
             services.AddMediatR();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-            });
+            services.AddSwaggerGen();
             var connectionString = Configuration.GetSection("ConnectionString").GetValue(typeof(string), "DataConnection").ToString();
 
 
@@ -60,25 +54,20 @@ namespace FreeTime
                     SecurePolicy = CookieSecurePolicy.SameAsRequest
                 };
             });
-
-
-
+            services.AddHealthChecks();
+            services.AddRazorPages();
+            services.AddControllersWithViews();
             services.AddAutoMapper();
 
             services.RegsiterServices();
-
-
-            services.AddMvc();
-
-
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+
             }
             else
             {
@@ -89,13 +78,16 @@ namespace FreeTime
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseStaticFiles();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Blog}/{action=Index}/{id?}");
             });
         }
     }

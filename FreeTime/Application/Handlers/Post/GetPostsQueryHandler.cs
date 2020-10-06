@@ -30,7 +30,7 @@ namespace FreeTime.Web.Application.Handlers
         {
            
             int resultForSkip = (request.Page-1) * request.Take;
-            var data = await _context.Posts.Where(p=>p.Status==PostStatus.Published).OrderByDescending(r=>r.CreatedOn).Skip(resultForSkip).Take(request.Take).ProjectTo<PostDto>(_mapper.ConfigurationProvider).ToListAsync();
+            var data = await _context.Posts.Where(p=>p.Status==request.Status).OrderByDescending(r=>r.CreatedOn).Skip(resultForSkip).Take(request.Take).ProjectTo<PostDto>(_mapper.ConfigurationProvider).ToListAsync();
             var totalCount =await _postService.TotalCount(PostStatus.Published);
             return new Envelope<IEnumerable<PostDto>>(request.Page, totalCount, 10 ,data);
 

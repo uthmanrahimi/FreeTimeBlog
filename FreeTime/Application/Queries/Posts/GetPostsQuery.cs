@@ -8,5 +8,10 @@ namespace FreeTime.Web.Application.Queries.Posts
     {
         public int Page { get; set; }
         public int Take { get; set; }
+        public PostStatus Status { get; set; }
+        public GetPostsQuery()
+        {
+            Status = PostStatus.Published;
+        }
     }
 }

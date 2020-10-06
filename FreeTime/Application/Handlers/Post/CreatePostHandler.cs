@@ -3,6 +3,7 @@ using FreeTime.Web.Application.Extensions;
 using FreeTime.Web.Application.Infrastructures;
 using FreeTime.Web.Application.Models.Entities;
 using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,8 +25,8 @@ namespace FreeTime.Web.Application.Handlers
         {
 
             var post = _mapper.Map<PostEntity>(request);
-            post.Slug = post.Slug.Friendly();
-            post.Slug = SafeSlug(post.Slug);
+            post.CreatedOn = DateTime.Now;
+            post.Slug = SafeSlug(post.Slug.Friendly());
             await _context.Posts.AddAsync(post);
             await _context.SaveChangesAsync();
             return true;
@@ -37,7 +38,7 @@ namespace FreeTime.Web.Application.Handlers
             string result = slug;
             while (true)
             {
-                var post = _context.Posts.OrderBy(p=>p.Id).FirstOrDefault(p => p.Slug == result);
+                var post = _context.Posts.OrderBy(p => p.Id).FirstOrDefault(p => p.Slug == result);
                 if (post != null)
                 {
                     result = $"{slug}-{postfix}";

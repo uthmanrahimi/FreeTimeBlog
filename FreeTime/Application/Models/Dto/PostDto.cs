@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FreeTime.Web.Application.Models
 {
@@ -9,6 +11,11 @@ namespace FreeTime.Web.Application.Models
         public string Slug { get; set; }
         public string Tags { get; set; }
         public string Title { get; set; }
-        public DateTime CreatedOn { get; }
+        public DateTime CreatedOn { get; set; }
+        public List<string> TagList => Tags.Split(";").ToList();
+        public PostDto()
+        {
+            //TagList = new List<string>();
+        }
     }
 }

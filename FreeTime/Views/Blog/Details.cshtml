@@ -1,6 +1,6 @@
 ﻿@model PostDto
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="my-3 my-md-5">
@@ -19,7 +19,7 @@
 
 
                                 <div class="card-subtitle">
-                                    <i class="fa fa-calendar"></i> @Model.CreatedOn
+                                    <i class="fa fa-calendar"></i> @Model.CreatedOn.ToFriendlyDateString()
                                 </div>
                                 <div class="card-subtitle">
                                     <i class="fa fa-eye"></i> 5025
@@ -31,8 +31,12 @@
                                 <div class="selectize-control form-control multi">
 
                                     <div class="selectize-input items not-full has-options has-items ">
-                                        <div class="item">c#</div>
-                                        <div class="item">ASP Core</div>
+                                        @*<div class="item">c#</div>
+                                        <div class="item">ASP Core</div>*@
+                                        @foreach (var tag in Model.TagList)
+                                        {
+                                            <div class="item">@tag</div>
+                                        }
                                     </div>
                                 </div>
 

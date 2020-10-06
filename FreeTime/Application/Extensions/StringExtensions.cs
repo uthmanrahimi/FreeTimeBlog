@@ -8,5 +8,10 @@ namespace FreeTime.Web.Application.Extensions
         {
             return Regex.Replace(str, "<.*?>",string.Empty);
         }
+        public static string SafeSubstring(this string value,int maxLength = 20)
+        {
+            int length = value.Length >= maxLength ? maxLength : value.Length;
+            return $"{value.Substring(0, length)}";
+        }
     }
 }

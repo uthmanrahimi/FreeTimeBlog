@@ -3472,21 +3472,18 @@ tbody.collapse.show {
   margin-bottom: 0;
 }
 
-.custom-control-label::before {
-  position: absolute;
-  top: 0.25rem;
-  left: 0;
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  pointer-events: none;
-  content: "";
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: #dee2e6;
-}
+    .custom-control-label::before {
+        position: absolute;
+        top: 0.203125rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        pointer-events: none;
+        content: "";
+        background-color: #fff;
+        border: #adb5bd solid 1px;
+    }
 
 .custom-control-label::after {
   position: absolute;
@@ -18254,7 +18251,4 @@ svg {
 
 .fe-zoom-out:before {
   content: "\ea06";
-}
-.padding-top-100{
-    padding-top:100px;
 }
