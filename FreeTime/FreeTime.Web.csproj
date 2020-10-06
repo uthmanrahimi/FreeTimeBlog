@@ -46,7 +46,6 @@
     <Folder Include="Application\Queries\Users\" />
     <Folder Include="Application\Services\Identity\" />
     <Folder Include="Application\Validation\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
