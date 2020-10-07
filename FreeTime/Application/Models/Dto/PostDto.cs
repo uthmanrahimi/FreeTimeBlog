@@ -13,6 +13,7 @@ namespace FreeTime.Web.Application.Models
         public string Title { get; set; }
         public DateTime CreatedOn { get; set; }
         public List<string> TagList => Tags.Split(";").ToList();
+        public PostStatus Status { get; set; }
         public PostDto()
         {
             //TagList = new List<string>();

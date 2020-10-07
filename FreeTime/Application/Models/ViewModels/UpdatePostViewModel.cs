@@ -13,5 +13,6 @@ namespace FreeTime.Web.Application.Models
         public string Tags { get; set; } = string.Empty;
         [Required]
         public string Title { get; set; }
+        public PostStatus Status { get; set; }
     }
 }

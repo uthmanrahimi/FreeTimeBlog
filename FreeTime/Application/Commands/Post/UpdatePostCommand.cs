@@ -1,4 +1,5 @@
 ﻿using FreeTime.Web.Application.Core;
+using FreeTime.Web.Application.Models;
 using MediatR;
 
 namespace FreeTime.Web.Application.Commands
@@ -10,5 +11,6 @@ namespace FreeTime.Web.Application.Commands
         public string Slug { get; set; }
         public string Tags { get; set; }
         public string Title { get; set; }
+        public PostStatus Status { get; set; }
     }
 }
