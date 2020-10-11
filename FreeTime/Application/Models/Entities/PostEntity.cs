@@ -21,5 +21,6 @@ namespace FreeTime.Web.Application.Models.Entities
         public PostStatus Status { get; set; }
         public User Writer { get; set; }
         public int WriterId { get; set; }
+        public int ViewCount { get; set; }
     }
 }

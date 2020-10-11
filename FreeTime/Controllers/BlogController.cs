@@ -88,7 +88,7 @@ namespace FreeTime.Web.Controllers
             var command = _mapper.Map<UpdatePostCommand>(post);
             var result = await _mediator.Send(command);
             if (result.Succeeded)
-                return Ok(result);
+                return RedirectToAction("manage");
             return BadRequest(result.ToString());
         }
 

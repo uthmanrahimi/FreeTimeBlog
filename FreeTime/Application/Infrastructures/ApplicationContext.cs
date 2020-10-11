@@ -24,8 +24,8 @@ namespace FreeTime.Web.Application.Infrastructures
             builder.Entity<Role>(entity =>
             {
                 entity.HasData(
-                    new Role { Id = 1, Name = "admin", Description = "administrator", NormalizedName = "admin" },
-                    new Role { Id = 2, Name = "user", Description = "members", NormalizedName = "USER" }
+                    new Role { Id = 1, Name = ApplicationConfiguration.AdminRoleName, Description = "administrator", NormalizedName = "admin" },
+                    new Role { Id = 2, Name = ApplicationConfiguration.UserRoleName, Description = "members", NormalizedName = "USER" }
                     );
             });
 

@@ -50,6 +50,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Status <small class="">( devide each tag with  ; )</small></label>
+                                    <select asp-for="@Model.Status" asp-items="Html.GetEnumSelectList<PostStatus>()" class="form-control dropdown">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer text-right">
                         <div class="d-flex">
