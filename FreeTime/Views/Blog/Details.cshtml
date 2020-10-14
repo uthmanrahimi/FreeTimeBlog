@@ -22,7 +22,7 @@
                                     <i class="fa fa-calendar"></i> @Model.CreatedOn.ToFriendlyDateString()
                                 </div>
                                 <div class="card-subtitle">
-                                    <i class="fa fa-eye"></i> 5025
+                                    <i class="fa fa-eye"></i> @Model.ViewCount
                                 </div>
                                 <div class="card-subtitle">
                                     <i class="fa fa-thumbs-o-up"></i> 100
@@ -31,11 +31,10 @@
                                 <div class="selectize-control form-control multi">
 
                                     <div class="selectize-input items not-full has-options has-items ">
-                                        @*<div class="item">c#</div>
-                                        <div class="item">ASP Core</div>*@
+                                       
                                         @foreach (var tag in Model.TagList)
                                         {
-                                            <div class="item">@tag</div>
+                                            <div class="item"><a asp-action="category" asp-route-category="@tag">@tag</a> </div>
                                         }
                                     </div>
                                 </div>

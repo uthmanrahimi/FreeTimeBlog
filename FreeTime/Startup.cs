@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FreeTime.Web.Application;
 using FreeTime.Web.Application.Core;
 using FreeTime.Web.Application.Extensions;
 using FreeTime.Web.Application.Infrastructures;
