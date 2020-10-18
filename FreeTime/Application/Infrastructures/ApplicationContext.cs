@@ -20,6 +20,8 @@ namespace FreeTime.Web.Application.Infrastructures
         {
             base.OnModelCreating(builder);
             new PostEntityMap(builder);
+            new TagEntityMap(builder);
+            new PostTagMap(builder);
 
             builder.Entity<Role>(entity =>
             {
