@@ -9,6 +9,7 @@ namespace FreeTime.Web.Application.Models.Entities.Maps
         {
             builder.Entity<TagEntity>(entity =>
             {
+                entity.HasKey(e=>e.Id);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(20);
             });
         }

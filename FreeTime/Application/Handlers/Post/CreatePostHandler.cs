@@ -27,9 +27,9 @@ namespace FreeTime.Web.Application.Handlers
             var post = _mapper.Map<PostEntity>(request);
             post.CreatedOn = DateTime.Now;
             post.Slug = SafeSlug(post.Slug.Friendly());
+            request.Tags.Split(";").ToList().ForEach(tag => post.PostTags.Add(new PostTagEntity { Post = post, Tag = new TagEntity { Name = tag } }));
             await _context.Posts.AddAsync(post);
-            await _context.SaveChangesAsync();
-            return true;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         private string SafeSlug(string slug)
@@ -47,6 +47,10 @@ namespace FreeTime.Web.Application.Handlers
                 else
                     return result;
             }
+        }
+        private void AddTags()
+        {
+
         }
 
     }

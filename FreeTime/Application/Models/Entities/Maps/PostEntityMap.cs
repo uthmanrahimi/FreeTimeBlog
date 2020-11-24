@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FreeTime.Web.Application.Models.Entities.Maps
 {
-    public class PostEntityMap: IEntityMap
+    public class PostEntityMap : IEntityMap
     {
         public PostEntityMap(ModelBuilder builder)
         {
             builder.Entity<PostEntity>(c =>
             {
+                c.HasKey(p => p.Id);
                 c.ToTable("posts");
                 c.Property(p => p.Title).IsRequired();
                 c.Property(p => p.Slug).IsRequired();

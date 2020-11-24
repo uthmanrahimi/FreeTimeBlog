@@ -8,9 +8,10 @@ using System;
 
 namespace FreeTime.Web.Application.Infrastructures
 {
-    public class ApplicationContext : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class ApplicationContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<PostEntity> Posts { get; set; }
+        public DbSet<TagEntity> Tags { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
 

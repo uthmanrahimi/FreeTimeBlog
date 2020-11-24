@@ -4,14 +4,16 @@ using FreeTime.Web.Application.Infrastructures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FreeTime.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20201123123344_PostTags")]
+    partial class PostTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,7 @@ namespace FreeTime.Web.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "975e0b31-491e-4694-a1bf-4d4346dc00c3",
+                            ConcurrencyStamp = "3b79722b-be5e-4de5-8885-d0752f6ca324",
                             Description = "administrator",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -62,7 +64,7 @@ namespace FreeTime.Web.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "a80f7df5-8e24-4298-9147-5ad24f831bdb",
+                            ConcurrencyStamp = "f71feea6-fbf6-4f3b-81d1-7fedc2ea815b",
                             Description = "members",
                             Name = "member",
                             NormalizedName = "USER"
@@ -143,15 +145,15 @@ namespace FreeTime.Web.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d037b9f9-c40c-4db1-a7b7-2a98f9a8f527",
+                            ConcurrencyStamp = "297ccf00-65fd-4556-8e0f-c98e6d79b920",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECapqQd1pATd93OsW6UHDPny/2B6EP0nVRYHyYoUbltFzW3FHuJv3aTWLNg9SSfKYQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAWin6dx3TcNjzL4ouXrdP/6ye2EvkxdiSrGxklpBMTsl3/ocj9M9HDkWbXkv0FMEA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6de13e42-b5dd-4d5c-8025-0f16349183fe",
+                            SecurityStamp = "49fa20ce-d6af-4ac1-92f3-0e254cd0fbb3",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -189,6 +191,7 @@ namespace FreeTime.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedOn")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ViewCount")
