@@ -26,14 +26,27 @@ namespace FreeTime.Web.Application.Handlers
 
             var post = _mapper.Map<PostEntity>(request);
             post.CreatedOn = DateTime.Now;
-            post.Slug = SafeSlug(post.Slug.Friendly());
-            request.Tags.Split(";").ToList().ForEach(tag => post.PostTags.Add(new PostTagEntity { Post = post, Tag = new TagEntity { Name = tag } }));
+            post.Slug = SafeSlug(post.Slug);
+            var tags = request.Tags.Split(";", StringSplitOptions.RemoveEmptyEntries).ToList().ConvertAll(s => s.ToLower());
+            var existedTags = _context.Tags.Select(s => new { s.Id, s.Name }).Where(t => tags.Contains(t.Name)).ToList();
+            var newTags = tags.Except(existedTags.Select(r => r.Name));
+
+            foreach (var tag in existedTags)
+                post.PostTags.Add(new PostTagEntity { TagId = tag.Id });
+
+            foreach (var item in newTags)
+            {
+                var tag = new TagEntity { Name = item };
+                post.PostTags.Add(new PostTagEntity { Tag = tag });
+            }
+
             await _context.Posts.AddAsync(post);
             return await _context.SaveChangesAsync() > 0;
         }
 
         private string SafeSlug(string slug)
         {
+            slug = slug.Friendly();
             int postfix = 2;
             string result = slug;
             while (true)
