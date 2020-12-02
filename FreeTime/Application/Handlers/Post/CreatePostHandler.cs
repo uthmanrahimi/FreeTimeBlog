@@ -26,7 +26,7 @@ namespace FreeTime.Web.Application.Handlers
 
             var post = _mapper.Map<PostEntity>(request);
             post.CreatedOn = DateTime.Now;
-            post.Slug = SafeSlug(post.Slug);
+            post.Slug = SafeSlug(string.IsNullOrEmpty(post.Slug) ? post.Title : post.Slug);
             var tags = request.Tags.Split(";", StringSplitOptions.RemoveEmptyEntries).ToList().ConvertAll(s => s.ToLower());
             var existedTags = _context.Tags.Select(s => new { s.Id, s.Name }).Where(t => tags.Contains(t.Name)).ToList();
             var newTags = tags.Except(existedTags.Select(r => r.Name));
@@ -60,10 +60,6 @@ namespace FreeTime.Web.Application.Handlers
                 else
                     return result;
             }
-        }
-        private void AddTags()
-        {
-
         }
 
     }
