@@ -2,7 +2,7 @@
 using FreeTime.Web.Application.Models;
 using MediatR;
 
-namespace FreeTime.Web.Application.Commands
+namespace FreeTime.Web
 {
     public class UpdatePostCommand : IRequest<OperationResult>
     {
