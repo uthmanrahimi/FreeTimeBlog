@@ -1,9 +1,9 @@
 ﻿namespace FreeTime.Web.Application
 {
-    public static class ApplicationConfiguration
+    public  class ApplicationConfiguration : IApplicationConfiguration
     {
-        public static string Title { get; set; }
-        public static string AdminRoleName = "admin";
-        public static string UserRoleName = "member";
+        public string Title => "";
+        public string AdminRoleName => "admin";
+        public string UserRoleName => "member";
     }
 }

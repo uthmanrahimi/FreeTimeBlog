@@ -61,7 +61,7 @@ namespace FreeTime
             services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddAutoMapper();
-
+            services.AddSingleton<IApplicationConfiguration, ApplicationConfiguration>();
             services.RegsiterServices();
         }
 

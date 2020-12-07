@@ -39,7 +39,7 @@ namespace FreeTime.Web.Application.Handlers
 
         public async Task<OperationResult> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _context.Posts.SingleOrDefaultAsync(x => x.Id == request.Id);
+            var post = await _context.Posts.Include(p=>p.PostTags).SingleOrDefaultAsync(x => x.Id == request.Id);
 
             if (post == null)
                 return OperationResult.Failed("blog post with requested id was not found");

@@ -24,7 +24,7 @@ namespace FreeTime.Web.Application.Handlers
         }
         public async Task<PostDto> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
         {
-            var post = await _context.Posts.SingleOrDefaultAsync(p => p.Id == request.Id);
+            var post = await _context.Posts.Include(p => p.PostTags).ThenInclude(p => p.Tag).SingleOrDefaultAsync(p => p.Id == request.Id);
             await _mediator.Publish(new PostViewed(request.Id));
             return _mapper.Map<PostDto>(post);
 

@@ -48,9 +48,11 @@ namespace FreeTime.Web.Controllers
             return Ok(result);
         }
 
-        public async Task<IActionResult> Category(string tag,int page=1)
+        
+        public async Task<IActionResult> Category(string category,int page=1)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(new GetPostsByCategoryQuery(category,page));
+            return View(result);
         }
 
         [Authorize, HttpGet("create")]

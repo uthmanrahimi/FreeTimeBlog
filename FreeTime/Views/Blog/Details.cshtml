@@ -27,18 +27,19 @@
                                 <div class="card-subtitle">
                                     <i class="fa fa-thumbs-o-up"></i> 100
                                 </div>
+                                @if (Model.TagList.Any())
+                                {
+                                    <div class="selectize-control form-control multi">
 
-                                <div class="selectize-control form-control multi">
+                                        <div class="selectize-input items not-full has-options has-items ">
 
-                                    <div class="selectize-input items not-full has-options has-items ">
-                                       
-                                        @foreach (var tag in Model.TagList)
-                                        {
-                                            <div class="item"><a asp-action="category" asp-route-category="@tag">@tag</a> </div>
-                                        }
+                                            @foreach (var tag in Model.TagList)
+                                            {
+                                                <div class="item"><a asp-action="category" asp-route-category="@tag">@tag</a> </div>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-
+                                }
                                 <div class="mt-5 d-flex align-items-center">
 
                                     <div class="ml-auto">

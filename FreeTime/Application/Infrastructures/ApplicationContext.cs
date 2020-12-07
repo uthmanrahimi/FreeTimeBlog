@@ -10,11 +10,14 @@ namespace FreeTime.Web.Application.Infrastructures
 {
     public class ApplicationContext : IdentityDbContext<User, Role, int>
     {
+        private readonly IApplicationConfiguration _applicationConfiguration;
+
         public DbSet<PostEntity> Posts { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        public DbSet<PostTagEntity> PostTags { get; set; }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options, IApplicationConfiguration applicationConfiguration) : base(options)
         {
-
+            _applicationConfiguration = applicationConfiguration;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -27,8 +30,8 @@ namespace FreeTime.Web.Application.Infrastructures
             builder.Entity<Role>(entity =>
             {
                 entity.HasData(
-                    new Role { Id = 1, Name = ApplicationConfiguration.AdminRoleName, Description = "administrator", NormalizedName = "admin" },
-                    new Role { Id = 2, Name = ApplicationConfiguration.UserRoleName, Description = "members", NormalizedName = "USER" }
+                    new Role { Id = 1, Name = _applicationConfiguration.AdminRoleName, Description = "administrator", NormalizedName = "admin" },
+                    new Role { Id = 2, Name = _applicationConfiguration.UserRoleName, Description = "members", NormalizedName = "USER" }
                     );
             });
 
