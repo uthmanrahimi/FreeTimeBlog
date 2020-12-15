@@ -46,7 +46,7 @@ namespace FreeTime.Web.Application.Handlers
 
             post = _mapper.Map(request, post);
             post.PostTags.Clear();
-
+            post.Slug = SafeSlug(string.IsNullOrEmpty(post.Slug) ? post.Title : post.Slug);
             SetPostTag(request.Tags, post);
 
             await _context.SaveChangesAsync();

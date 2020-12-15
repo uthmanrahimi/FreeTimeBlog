@@ -3,6 +3,7 @@ using FreeTime.Web.Application;
 using FreeTime.Web.Application.Core;
 using FreeTime.Web.Application.Extensions;
 using FreeTime.Web.Application.Infrastructures;
+using FreeTime.Web.Application.Middlewares;
 using FreeTime.Web.Application.Models.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -85,7 +86,7 @@ namespace FreeTime
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthorization();
-
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

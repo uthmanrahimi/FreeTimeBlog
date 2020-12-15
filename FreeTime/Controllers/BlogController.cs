@@ -29,7 +29,6 @@ namespace FreeTime.Web.Controllers
         [HttpGet("index")]
         public async Task<IActionResult> Index(int page = 1)
         {
-
             var result = await _mediator.Send(new GetPostsQuery { Page = page, Take = 10, Status = PostStatus.Published });
             ViewBag.PageOfItems = new StaticPagedList<PostDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
