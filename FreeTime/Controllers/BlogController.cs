@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FreeTime.Web.Application;
 using FreeTime.Web.Application.Commands;
 using FreeTime.Web.Application.Models;
 using FreeTime.Web.Application.Queries.Posts;
@@ -12,16 +13,18 @@ using X.PagedList;
 
 namespace FreeTime.Web.Controllers
 {
-   
+
     public class BlogController : BaseController
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IApplicationConfiguration _configuration;
 
-        public BlogController(IMediator mediator, IMapper mapper)
+        public BlogController(IMediator mediator, IMapper mapper, IApplicationConfiguration configuration)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         [HttpGet("")]
@@ -29,7 +32,7 @@ namespace FreeTime.Web.Controllers
         [HttpGet("index")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var result = await _mediator.Send(new GetPostsQuery { Page = page, Take = 10, Status = PostStatus.Published });
+            var result = await _mediator.Send(new GetPublishedPostsQuery(page,_configuration.PostsPerPage));
             ViewBag.PageOfItems = new StaticPagedList<PostDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
         }
@@ -47,10 +50,10 @@ namespace FreeTime.Web.Controllers
             return Ok(result);
         }
 
-        
-        public async Task<IActionResult> Category(string category,int page=1)
+
+        public async Task<IActionResult> Category(string category, int page = 1)
         {
-            var result = await _mediator.Send(new GetPostsByCategoryQuery(category,page));
+            var result = await _mediator.Send(new GetPostsByCategoryQuery(category, page));
             return View(result);
         }
 
@@ -104,12 +107,11 @@ namespace FreeTime.Web.Controllers
             return BadRequest(result.ToString());
         }
 
-        [HttpGet("manage/{page?}")]
-        public async Task<IActionResult> Manage(int page = 0)
+        [HttpGet("manage")]
+        public async Task<IActionResult> Manage(int page = 1)
         {
-            var result = await _mediator.Send(new GetAllPostsQuery() { Page = page });
-
-
+            var result = await _mediator.Send(new GetAllPostsQuery(page, _configuration.PostsPerPage));
+            ViewBag.PageOfItems = new StaticPagedList<PostListDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
         }
     }

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace FreeTime.Web.Application.Models.Entities
 {
@@ -26,19 +25,6 @@ namespace FreeTime.Web.Application.Models.Entities
         public PostEntity()
         {
             PostTags = new List<PostTagEntity>();
-        }
-
-        public void AddTag(TagEntity tag)
-        {
-            this.PostTags.Add(new PostTagEntity { Post = this, Tag = tag });
-        }
-
-        public void AddTags(IEnumerable<TagEntity> tags)
-        {
-            tags.ToList().ForEach(tag =>
-            {
-                AddTag(tag);
-            });
         }
 
     }

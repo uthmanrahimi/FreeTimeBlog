@@ -4,15 +4,14 @@ using System.Collections.Generic;
 
 namespace FreeTime.Web.Application.Queries.Posts
 {
-    public class GetAllPostsQuery : IRequest<Envelope<IEnumerable<PostListDto>>>
+    public class GetPublishedPostsQuery : IRequest<Envelope<IEnumerable<PostDto>>>
     {
         public int Page { get; set; }
-        public int PostsPerPage { get;private  set; }
-        public GetAllPostsQuery(int page,int postsPerPage)
+        public int PostsPerPage { get; set; }
+        public GetPublishedPostsQuery(int page,int postsPerPage=10)
         {
             Page = page;
             PostsPerPage = postsPerPage;
         }
-
     }
 }

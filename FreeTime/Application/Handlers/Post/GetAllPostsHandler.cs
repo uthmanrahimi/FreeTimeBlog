@@ -19,25 +19,23 @@ namespace FreeTime.Web.Application.Handlers.Post
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
-        private readonly IPostService _postService;
 
-        public GetAllPostsHandler(ApplicationContext context, IMapper mapper,IPostService postService)
+        public GetAllPostsHandler(ApplicationContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _postService = postService;
         }
 
 
         public async Task<Envelope<IEnumerable<PostListDto>>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
         {
-            int skip = request.Page * 10;
+            request.Page = request.Page > 0 ? --request.Page : request.Page;
+            int skip = request.Page * request.PostsPerPage;
 
-
-            var data=await  _context.Posts.OrderByDescending(p => p.CreatedOn).Skip(skip).Take(10).ProjectTo<PostListDto>(_mapper.ConfigurationProvider).ToListAsync();
+            var data = await _context.Posts.OrderByDescending(p => p.Id).Skip(skip).Take(request.PostsPerPage).ProjectTo<PostListDto>(_mapper.ConfigurationProvider).ToListAsync();
             int total = await _context.Posts.CountAsync();
 
-            return new Envelope<IEnumerable<PostListDto>>(request.Page, total, 10, data);
+            return new Envelope<IEnumerable<PostListDto>>(request.Page, total, request.PostsPerPage, data);
         }
     }
 }
