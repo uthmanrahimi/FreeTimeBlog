@@ -7,7 +7,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts{
 
+
+    <script src="~/js/management.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+}
 <div class="my-3 my-md-5">
     <div class="container">
 
@@ -47,7 +52,7 @@
                                     {
 
 
-                                        <tr>
+                                        <tr id="@item.Id">
 
                                             <td><span class="text-muted">@item.Id</span></td>
                                             <td><a href="invoice.html" class="text-reset">@item.Title.SafeSubstring()</a></td>
@@ -61,7 +66,7 @@
                                             <td>@item.ViewCount</td>
                                             <td class="text-right">
                                                 <a class="icon" asp-action="edit" asp-route-id="@item.Id"><i class="fe fe-edit"></i></a>
-                                                <a href="#" class="icon"><i class="fe fe-trash"></i></a>
+                                                <a class="icon btn-delete-post" data-id="@item.Id"><i class="fe fe-trash"></i></a>
                                             </td>
                                         </tr>
                                     }

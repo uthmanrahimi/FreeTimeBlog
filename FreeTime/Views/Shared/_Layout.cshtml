@@ -19,10 +19,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Dashboard Core -->
     <link href="~/css/dashboard.css" rel="stylesheet" />
+    <script>
+        var baseUrl = '@Url.Content("~/")';
+    </script>
     <script src="~/js/vendors/jquery-3.2.1.min.js"></script>
     <script src="~/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="~/js/core.js"></script>
-
+    @RenderSection("Scripts", required: false)
 
 </head>
 <body class="">

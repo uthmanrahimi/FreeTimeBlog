@@ -5,9 +5,7 @@ using FreeTime.Web.Application.Models;
 using FreeTime.Web.Application.Queries.Posts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using X.PagedList;
 
@@ -67,13 +65,13 @@ namespace FreeTime.Web.Controllers
         public async Task<IActionResult> Create(CreatePostViewModel post)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return View();
 
             var command = _mapper.Map<CreatePostCommand>(post);
             command.WriterId = LogedInUserId;
             var result = await _mediator.Send(command);
             if (!result)
-                return BadRequest();
+                return View();
             return RedirectToAction("Index");
         }
 
@@ -93,21 +91,22 @@ namespace FreeTime.Web.Controllers
             var result = await _mediator.Send(command);
             if (result.Succeeded)
                 return RedirectToAction("manage");
-            return BadRequest(result.ToString());
+            return View(result.ToString());
         }
 
 
-        [HttpDelete]
+        [HttpDelete("api/blog/{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _mediator.Send(new DeletePostCommand { Id = id });
+            var result = await _mediator.Send(new DeletePostCommand(id));
             if (result.Succeeded)
                 return Ok();
             return BadRequest(result.ToString());
         }
 
         [HttpGet("manage")]
+        [Authorize]
         public async Task<IActionResult> Manage(int page = 1)
         {
             var result = await _mediator.Send(new GetAllPostsQuery(page, _configuration.PostsPerPage));

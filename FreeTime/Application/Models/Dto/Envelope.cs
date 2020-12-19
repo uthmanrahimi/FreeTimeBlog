@@ -5,8 +5,6 @@ namespace FreeTime.Web.Application.Models
 {
     public class Envelope<T>
     {
-
-        
         public T Data { get; }
         public int Page { get;}
         public int Total { get; }

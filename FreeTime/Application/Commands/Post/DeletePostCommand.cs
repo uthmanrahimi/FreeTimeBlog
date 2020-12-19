@@ -5,7 +5,11 @@ namespace FreeTime.Web.Application.Commands
 {
     public class DeletePostCommand:IRequest<OperationResult>
     {
-        public int Id { get; set; }
+        public int Id { get;}
+        public DeletePostCommand(int id)
+        {
+            Id = id;
+        }
        
     }
 }
