@@ -3,9 +3,22 @@
     ViewData["Title"] = "Edit " + Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ubo7yvv9j1n7gkdslv0zs0cd0rur0yu11z3rju2ii1lf7nh8"></script>
 
-<script>tinymce.init({ selector: 'textarea' });</script>
+@section Scripts{
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ubo7yvv9j1n7gkdslv0zs0cd0rur0yu11z3rju2ii1lf7nh8"></script>
+    <script>
+    tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            width: 800,
+            plugins: "image",
+            toolbar: 'image',
+            paste_data_images: true,
+            images_upload_url: '/api/images'
+        });</script>
+
+}
+
 
 
 <div class="my-3 my-md-5">
@@ -55,7 +68,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Status <small class="">( devide each tag with  ; )</small></label>
-                                    <select asp-for="@Model.Status" asp-items="Html.GetEnumSelectList<PostStatus>()"  class="form-control dropdown">
+                                    <select asp-for="@Model.Status" asp-items="Html.GetEnumSelectList<PostStatus>()" class="form-control dropdown">
                                     </select>
                                 </div>
                             </div>

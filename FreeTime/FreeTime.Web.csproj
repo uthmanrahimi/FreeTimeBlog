@@ -47,6 +47,7 @@
     <Folder Include="Application\Services\Identity\" />
     <Folder Include="Application\Validation\" />
     <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
   
