@@ -2,7 +2,8 @@
 
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
-
+@inject IApplicationConfiguration _configuration
+ 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,7 +23,7 @@
                             <div class="d-flex align-items-center pt-5 mt-auto">
                                 <div class="avatar avatar-md mr-3" style="background-image: url(./demo/faces/male/35.jpg)"></div>
                                 <div>
-                                    <a href="./profile.html" class="text-default">Uthman</a>
+                                    <a href="./profile.html" class="text-default">@_configuration.OwnerName</a>
                                     <small class="d-block text-muted">@item.CreatedOn.ToFriendlyDateString()</small>
                                 </div>
                                 <div class="ml-auto text-muted">

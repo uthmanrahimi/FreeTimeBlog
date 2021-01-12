@@ -1,7 +1,6 @@
-﻿using FreeTime.Web.Application.Extensions;
-using FreeTime.Web.Application.Models.Entities.Identity;
+﻿using FreeTime.Application.Common.Interfaces;
+using FreeTime.Web.Application.Extensions;
 using FreeTime.Web.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,15 +8,12 @@ namespace FreeTime.Web.Controllers
 {
     public class SecurityController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IIdentityService _identityService;
 
-        public SecurityController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public SecurityController(IIdentityService identityService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _identityService = identityService;
         }
-
 
 
         [HttpGet]
@@ -25,7 +21,6 @@ namespace FreeTime.Web.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
 
@@ -35,17 +30,11 @@ namespace FreeTime.Web.Controllers
             {
                 return View(model);
             }
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+            var result = await _identityService.SignInAsync(model.UserName, model.Password, model.RememberMe, true);// _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
             if (result.Succeeded)
                 return RedirectToAction("Index", "Blog");
 
-            if (result.IsLockedOut)
-            {
-                ModelState.AddModelError(string.Empty, "Account is locked out.");
-                return View(model);
-            }
-
-            ModelState.AddModelError(string.Empty, "Login Failed. UserName or Password is incorrect");
+            ModelState.AddModelError(string.Empty, result.ToString());
             return View(model);
         }
 
@@ -59,25 +48,13 @@ namespace FreeTime.Web.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsNotValid())
-            {
                 return View(model);
-            }
 
-            var user = new User { UserName = model.UserName, FirstName = model.Name };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _identityService.CreateUserAsync(model.UserName, model.Password);
             if (result.Succeeded)
-            {
-                // confirm code
-                //send email
-                await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Blog");
-            }
 
-            foreach (var item in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, item.Description);
-            }
+            ModelState.AddModelError(string.Empty, result.ToString());
 
             return View(model);
 
@@ -86,8 +63,8 @@ namespace FreeTime.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Blog");
+            await _identityService.LogOutAsync();
+            return RedirectToAction("Index", "Blog");
         }
     }
 }

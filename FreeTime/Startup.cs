@@ -1,16 +1,12 @@
-﻿using AutoMapper;
+﻿using FreeTime.Application;
+using FreeTime.Application.Common.Interfaces;
+using FreeTime.Infrastructure;
 using FreeTime.Web.Application;
 using FreeTime.Web.Application.Core;
-using FreeTime.Web.Application.Extensions;
-using FreeTime.Web.Application.Infrastructures;
 using FreeTime.Web.Application.Middlewares;
-using FreeTime.Web.Application.Models.Entities.Identity;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,18 +24,11 @@ namespace FreeTime
 
         public void ConfigureServices(IServiceCollection services)
         {
-          
-            services.AddMediatR();
 
+            services.AddInfrastructureServices(Configuration);
+            services.AddApplicationServices();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddSwaggerGen();
-            var connectionString = Configuration.GetSection("ConnectionString").GetValue(typeof(string), "DataConnection").ToString();
-
-
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-
-            services.AddIdentity<User, Role>()
-            .AddEntityFrameworkStores<ApplicationContext>()
-            .AddDefaultTokenProviders();
 
 
             services.ConfigureApplicationCookie(options =>
@@ -61,9 +50,7 @@ namespace FreeTime
             services.AddHealthChecks();
             services.AddRazorPages();
             services.AddControllersWithViews();
-            services.AddAutoMapper();
             services.AddSingleton<IApplicationConfiguration, ApplicationConfiguration>();
-            services.RegsiterServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

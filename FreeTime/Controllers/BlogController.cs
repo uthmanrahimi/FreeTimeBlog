@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using FreeTime.Web.Application;
-using FreeTime.Web.Application.Commands;
-using FreeTime.Web.Application.Models;
-using FreeTime.Web.Application.Queries.Posts;
-using MediatR;
+﻿using FreeTime.Application.Common.DTOs;
+using FreeTime.Application.Common.Interfaces;
+using FreeTime.Application.Features.Posts.Commands;
+using FreeTime.Application.Features.Posts.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -14,14 +12,10 @@ namespace FreeTime.Web.Controllers
 
     public class BlogController : BaseController
     {
-        private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
         private readonly IApplicationConfiguration _configuration;
 
-        public BlogController(IMediator mediator, IMapper mapper, IApplicationConfiguration configuration)
+        public BlogController(IApplicationConfiguration configuration)
         {
-            _mediator = mediator;
-            _mapper = mapper;
             _configuration = configuration;
         }
 
@@ -30,28 +24,28 @@ namespace FreeTime.Web.Controllers
         [HttpGet("index")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var result = await _mediator.Send(new GetPublishedPostsQuery(page,_configuration.PostsPerPage));
+            var result = await Mediator.Send(new GetPublishedPostsQuery(page,_configuration.PostsPerPage));
             ViewBag.PageOfItems = new StaticPagedList<PostDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
         }
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id, string slug)
         {
-            var result = await _mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
             return View(result);
         }
 
         [HttpGet("get/{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
-            var result = await _mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
             return Ok(result);
         }
 
 
         public async Task<IActionResult> Category(string category, int page = 1)
         {
-            var result = await _mediator.Send(new GetPostsByCategoryQuery(category, page));
+            var result = await Mediator.Send(new GetPostsByCategoryQuery(category, page));
             return View(result);
         }
 
@@ -62,14 +56,13 @@ namespace FreeTime.Web.Controllers
         }
         [HttpPost("create")]
         [Authorize]
-        public async Task<IActionResult> Create(CreatePostViewModel post)
+        public async Task<IActionResult> Create(CreatePostCommand command)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            var command = _mapper.Map<CreatePostCommand>(post);
             command.WriterId = LogedInUserId;
-            var result = await _mediator.Send(command);
+            var result = await Mediator.Send(command);
             if (!result)
                 return View();
             return RedirectToAction("Index");
@@ -79,16 +72,15 @@ namespace FreeTime.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await _mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
             return View(result);
         }
 
         [HttpPost("edit/{id}")]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, UpdatePostViewModel post)
+        public async Task<IActionResult> Edit(int id, UpdatePostCommand command)
         {
-            var command = _mapper.Map<UpdatePostCommand>(post);
-            var result = await _mediator.Send(command);
+            var result = await Mediator.Send(command);
             if (result.Succeeded)
                 return RedirectToAction("manage");
             return View(result.ToString());
@@ -99,7 +91,7 @@ namespace FreeTime.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _mediator.Send(new DeletePostCommand(id));
+            var result = await Mediator.Send(new DeletePostCommand(id));
             if (result.Succeeded)
                 return Ok();
             return BadRequest(result.ToString());
@@ -109,7 +101,7 @@ namespace FreeTime.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Manage(int page = 1)
         {
-            var result = await _mediator.Send(new GetAllPostsQuery(page, _configuration.PostsPerPage));
+            var result = await Mediator.Send(new GetAllPostsQuery(page, _configuration.PostsPerPage));
             ViewBag.PageOfItems = new StaticPagedList<PostListDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
         }

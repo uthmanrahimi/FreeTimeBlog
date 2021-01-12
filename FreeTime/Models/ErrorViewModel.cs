@@ -1,6 +1,6 @@
 using System;
 
-namespace FreeTime.Models
+namespace FreeTime.Web.Models
 {
     public class ErrorViewModel
     {

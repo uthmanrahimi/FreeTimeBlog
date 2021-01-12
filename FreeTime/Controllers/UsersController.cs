@@ -1,4 +1,4 @@
-﻿using FreeTime.Web.Application.Queries.Posts;
+﻿using FreeTime.Application.Features.Posts.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +10,8 @@ namespace FreeTime.Web.Controllers
     [Route("users/")]
     public class UsersController : BaseController
     {
-        private readonly IMediator _mediator;
-
-        public UsersController(IMediator mediator)
+        public UsersController()
         {
-            _mediator = mediator;
         }
 
         [HttpGet("{userid}/posts"), Authorize]
@@ -22,7 +19,7 @@ namespace FreeTime.Web.Controllers
         {
 
             int userId = LogedInUserId;
-            var result = await _mediator.Send(new GetUserPostsQuery(userId));
+            var result = await Mediator.Send(new GetUserPostsQuery(userId));
             return View(result);
         }
 
