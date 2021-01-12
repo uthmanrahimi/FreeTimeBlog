@@ -1,5 +1,6 @@
 # Blog engine for ASP.NET Core
-Freetime is a simple and single-user personal blog, written in Asp.NET Core. It uses `Clean`.
+Freetime is a simple and single-user personal blog, written in Asp.NET Core. 
+> Freetime follows  `Clean Architecture`'s best practices.
 
 
 # Getting Started
