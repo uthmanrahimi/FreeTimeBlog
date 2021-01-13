@@ -73,7 +73,71 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Your thoughs</h3>
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label"> Name</label>
+                                    <input type="text" class="form-control" placeholder="Name" id="txtName">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email address</label>
+                                    <input type="email" class="form-control" placeholder="Email" id="txtEmail">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label class="form-label">About Me</label>
+                                    <textarea rows="5" class="form-control" placeholder="Here can be your thought" id="txtContent"></textarea>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary" id="btnSend">Send</button>
+                    </div>
+                </div>
+
+
             </div>
+
+
+
         </div>
     </div>
 </div>
+
+<script>
+
+
+    $(document).on('click', '#btnSend', function () {
+        var postId =@(Model.Id);
+        var model = {
+            authorname: $('#txtName').val(),
+            email: $('#txtEmail').val(),
+            content: $('#txtContent').val(),
+            postId:postId
+        }
+
+      var url = baseUrl + `api/comments/${postId}`;
+        $.ajax({
+            url: url,
+            data: JSON.stringify(model),
+            type: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+            },
+            error: function (error) { }
+        });
+
+    });
+</script>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FreeTime.Application.Common.DTOs;
 using FreeTime.Application.Common.DTOs.Posts;
+using FreeTime.Application.Features.Comments.Commands;
 using FreeTime.Application.Features.Posts.Commands;
 using FreeTime.Domain.Entities;
 using FreeTime.Domain.Entities.Enums;
@@ -24,6 +25,7 @@ namespace FreeTime.Application.Common.Mappings
             CreateMap<PostEntity, PostListDto>()
                 .ReverseMap();
 
+            CreateMap<AddCommentCommand, PostCommentEntity>();
         }
     }
 }
