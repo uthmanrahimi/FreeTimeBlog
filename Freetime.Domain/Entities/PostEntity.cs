@@ -20,10 +20,12 @@ namespace FreeTime.Domain.Entities
         public int WriterId { get; set; }
         public int ViewCount { get; set; }
         public ICollection<PostTagEntity> PostTags { get; set; }
+        public ICollection<PostCommentEntity> Comments { get; private set; }
 
         public PostEntity()
         {
             PostTags = new List<PostTagEntity>();
+            Comments = new List<PostCommentEntity>();
         }
 
     }

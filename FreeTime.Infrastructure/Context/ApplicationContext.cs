@@ -17,6 +17,8 @@ namespace FreeTime.Infrastructure.Context
         public DbSet<PostEntity> Posts { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
         public DbSet<PostTagEntity> PostTags { get; set; }
+        public DbSet<PostCommentEntity> Comments { get; set; }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options, IApplicationConfiguration applicationConfiguration) : base(options)
         {
             _applicationConfiguration = applicationConfiguration;
