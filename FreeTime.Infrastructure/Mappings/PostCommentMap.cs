@@ -12,7 +12,7 @@ namespace FreeTime.Infrastructure.Mappings
             {
                 entity.ToTable("Comments");
                 entity.Property(c => c.Content).IsRequired();
-                entity.Property(c => c.CreatedOn).HasDefaultValueSql("GETDate()");
+                entity.Property(c => c.CreatedOn);
                 entity.Property(c => c.Email).IsRequired().HasMaxLength(50);
                 entity.Property(c => c.AuthorName).IsRequired().HasMaxLength(50);
                 entity.HasOne(c => c.Post).WithMany(c => c.Comments).HasForeignKey(c => c.PostId);

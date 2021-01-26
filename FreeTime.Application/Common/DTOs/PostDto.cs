@@ -14,7 +14,9 @@ namespace FreeTime.Application.Common.DTOs
         public DateTime CreatedOn { get; set; }
         public List<string> TagList { get; set; }
         public PostStatus Status { get; set; }
+        public int CommentsCount { get; set; }
         public int ViewCount { get; set; }
+
         public PostDto()
         {
         }

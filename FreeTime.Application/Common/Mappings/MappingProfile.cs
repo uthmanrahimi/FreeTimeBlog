@@ -23,9 +23,13 @@ namespace FreeTime.Application.Common.Mappings
             CreateMap<PostEntity, UserPostsDto>();
 
             CreateMap<PostEntity, PostListDto>()
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(s => s.Comments.Count))
                 .ReverseMap();
 
             CreateMap<AddCommentCommand, PostCommentEntity>();
+
+            CreateMap<PostCommentEntity, CommentDto>()
+                .ForMember(dest => dest.CreatedDate, src => src.MapFrom(s => s.CreatedOn));
         }
     }
 }

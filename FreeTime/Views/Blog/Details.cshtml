@@ -81,7 +81,7 @@
 
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label"> Name</label>
+                                    <label class="form-label">Name</label>
                                     <input type="text" class="form-control" placeholder="Name" id="txtName">
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
-                                    <label class="form-label">About Me</label>
+                                    <label class="form-label">Thought</label>
                                     <textarea rows="5" class="form-control" placeholder="Here can be your thought" id="txtContent"></textarea>
                                 </div>
                                 <div></div>
@@ -105,7 +105,12 @@
                         <button type="submit" class="btn btn-primary" id="btnSend">Send</button>
                     </div>
                 </div>
-
+                
+                <div class="col-12" id="comments" >
+                      <h2 class="page-title"><i class="fa fa-comment"></i> Comments</h2>
+                    
+                    
+                </div>
 
             </div>
 
@@ -116,7 +121,11 @@
 </div>
 
 <script>
-
+    $(window).on('load', function () {
+  
+          var postId =@(Model.Id);
+        getComments(postId, 0);
+    });
 
     $(document).on('click', '#btnSend', function () {
         var postId =@(Model.Id);
@@ -140,4 +149,18 @@
         });
 
     });
+
+    function getComments(postId, page) {
+        var url = baseUrl + `api/comments/${postId}/${page}`;
+        $.ajax({
+            url: url,
+            type: 'get',
+            contentType: 'application/json',
+            dataType: 'html',
+            success: function (htmlResult) {
+                $("#comments").append(htmlResult);
+            },
+            error: function (error) { }
+        });
+    }
 </script>

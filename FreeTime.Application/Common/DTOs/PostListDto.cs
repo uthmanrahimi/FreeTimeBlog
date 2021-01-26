@@ -10,6 +10,7 @@ namespace FreeTime.Application.Common.DTOs
         public DateTime CreatedAt { get; set; }
         public int ViewCount { get; set; }
         public PostStatus Status { get; set; }
+        public int CommentsCount { get; set; }
 
     }
 }

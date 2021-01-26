@@ -1,0 +1,18 @@
+﻿@model IEnumerable<FreeTime.Application.Common.DTOs.CommentDto>
+
+
+@foreach (var comment in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <p>
+             @comment.Content
+            </p>
+        </div>
+        <div class="card-footer">
+            <i class="fa fa-user"></i> @comment.AuthorName &nbsp;  <i class="fa fa-clock-o"></i> @comment.CreatedDate.ToFriendlyDateString()
+        </div>
+    </div>
+}
+
+

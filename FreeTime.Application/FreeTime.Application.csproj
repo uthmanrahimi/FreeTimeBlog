@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Comments\Queries\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

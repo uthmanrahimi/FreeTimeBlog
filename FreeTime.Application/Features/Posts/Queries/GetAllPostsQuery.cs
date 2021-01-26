@@ -39,7 +39,7 @@ namespace FreeTime.Application.Features.Posts.Queries
                 request.Page = request.Page > 0 ? --request.Page : request.Page;
                 int skip = request.Page * request.PostsPerPage;
 
-                var data = await _context.Posts.OrderByDescending(p => p.Id).Skip(skip).Take(request.PostsPerPage).ProjectTo<PostListDto>(_mapper.ConfigurationProvider).ToListAsync();
+                var data = await _context.Posts.Include(p => p.Comments).OrderByDescending(p => p.Id).Skip(skip).Take(request.PostsPerPage).ProjectTo<PostListDto>(_mapper.ConfigurationProvider).ToListAsync();
                 int total = await _context.Posts.CountAsync();
 
                 return new Envelope<IEnumerable<PostListDto>>(request.Page, total, request.PostsPerPage, data);

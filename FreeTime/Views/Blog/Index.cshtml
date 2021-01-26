@@ -34,7 +34,7 @@
                     </div>
                 </div>}
         </div>
-        <div class="center">
+        <div class="center" >
             @Html.PagedListPager((IPagedList)ViewBag.PageOfItems, page=> Url.Action("Index",new { page}),new X.PagedList.Mvc.Common.PagedListRenderOptionsBase { PageClasses =new []{ "page-link" },ActiveLiElementClass= "active",LiElementClasses=new[] { "page-item" } ,DisplayEllipsesWhenNotShowingAllPageNumbers=true})
        
         </div>

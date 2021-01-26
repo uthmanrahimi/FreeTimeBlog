@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Tests", "FreeTime.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime.SPA", "FreeTime.SPA\FreeTime.SPA.csproj", "{535506D1-577B-4235-ACCC-D4D76537E32E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime.Domain", "Freetime.Domain\FreeTime.Domain.csproj", "{0DE79382-90D5-4E74-9D8C-C8BEC5E2398C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Domain", "Freetime.Domain\FreeTime.Domain.csproj", "{0DE79382-90D5-4E74-9D8C-C8BEC5E2398C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime.Application", "FreeTime.Application\FreeTime.Application.csproj", "{26586A81-F033-4002-9F40-E4C567CCB541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Application", "FreeTime.Application\FreeTime.Application.csproj", "{26586A81-F033-4002-9F40-E4C567CCB541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime.Infrastructure", "FreeTime.Infrastructure\FreeTime.Infrastructure.csproj", "{CE89E715-A9A4-4B79-8302-B6E84856BD0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Infrastructure", "FreeTime.Infrastructure\FreeTime.Infrastructure.csproj", "{CE89E715-A9A4-4B79-8302-B6E84856BD0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
