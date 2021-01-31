@@ -60,7 +60,7 @@ namespace FreeTime.Infrastructure.Context
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entities = ChangeTracker.Entries<IEntity>();
+            var entities = ChangeTracker.Entries<BaseEntity>();
 
             foreach (var entity in entities)
             {
