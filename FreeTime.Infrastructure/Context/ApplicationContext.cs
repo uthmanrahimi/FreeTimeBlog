@@ -66,10 +66,6 @@ namespace FreeTime.Infrastructure.Context
             {
                 switch (entity.State)
                 {
-                    case EntityState.Detached:
-                        break;
-                    case EntityState.Unchanged:
-                        break;
                     case EntityState.Deleted:
                         break;
                     case EntityState.Modified:

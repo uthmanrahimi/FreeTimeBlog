@@ -38,7 +38,6 @@ namespace FreeTime.Application.Features.Posts.Commands
             {
 
                 var post = _mapper.Map<PostEntity>(request);
-                post.CreatedOn = DateTime.Now;
                 post.Slug = SafeSlug(string.IsNullOrEmpty(post.Slug) ? post.Title : post.Slug);
 
                 SetPostTag(request.Tags, post);

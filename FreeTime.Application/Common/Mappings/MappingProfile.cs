@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+
 using FreeTime.Application.Common.DTOs;
 using FreeTime.Application.Common.DTOs.Posts;
 using FreeTime.Application.Features.Comments.Commands;
 using FreeTime.Application.Features.Posts.Commands;
 using FreeTime.Domain.Entities;
-using FreeTime.Domain.Entities.Enums;
+
 using System.Linq;
 
 namespace FreeTime.Application.Common.Mappings
@@ -13,9 +14,11 @@ namespace FreeTime.Application.Common.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<CreatePostCommand, PostEntity>().ForMember(src => src.Status, dest => dest.MapFrom(src => PostStatus.Draft));
+            CreateMap<CreatePostCommand, PostEntity>();
             CreateMap<PostEntity, PostDto>()
-                .ForMember(dest => dest.TagList, src => src.MapFrom(t => t.PostTags.Select(x => x.Tag).Select(x => x.Name)));
+                .ForMember(dest => dest.TagList, src => src.MapFrom(t => t.PostTags.Select(x => x.Tag).Select(x => x.Name)))
+                .ForMember(dest=>dest.CommentsCount,src=>src.MapFrom(c=>c.Comments.Count(comment=>comment.IsApproved)))
+                ;
 
             CreateMap<UpdatePostCommand, PostEntity>().ForMember(dest => dest.CreatedOn, opt => opt.Ignore())
             .ForMember(dest => dest.UpdatedOn, opt => opt.Ignore());

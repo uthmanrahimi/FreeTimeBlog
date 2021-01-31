@@ -31,14 +31,14 @@ namespace FreeTime.Web.Controllers
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id, string slug)
         {
-            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery(id));
             return View(result);
         }
 
         [HttpGet("get/{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
-            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery(id));
             return Ok(result);
         }
 
@@ -72,7 +72,7 @@ namespace FreeTime.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await Mediator.Send(new GetPostByIdQuery { Id = id });
+            var result = await Mediator.Send(new GetPostByIdQuery(id));
             return View(result);
         }
 
