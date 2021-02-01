@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Application\Validation\**" />
+    <Compile Remove="wwwroot\assets\**" />
     <Content Remove="Application\Validation\**" />
+    <Content Remove="wwwroot\assets\**" />
     <EmbeddedResource Remove="Application\Validation\**" />
+    <EmbeddedResource Remove="wwwroot\assets\**" />
     <None Remove="Application\Validation\**" />
+    <None Remove="wwwroot\assets\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
