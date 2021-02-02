@@ -13,7 +13,7 @@ namespace FreeTime.Web.Controllers
         public async Task<IActionResult> Post(int postId, [FromBody] AddCommentCommand command)
         {
             await Mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet("{postId:int}/{page}")]

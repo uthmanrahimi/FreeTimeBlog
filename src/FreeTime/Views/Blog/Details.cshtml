@@ -105,11 +105,11 @@
                         <button type="submit" class="btn btn-primary" id="btnSend">Send</button>
                     </div>
                 </div>
-                
-                <div class="col-12" id="comments" >
-                      <h2 class="page-title"><i class="fa fa-comment"></i>&nbsp; @Model.CommentsCount Comment(s)</h2>
-                    
-                    
+
+                <div class="col-12" id="comments">
+                    <h2 class="page-title"><i class="fa fa-comment"></i>&nbsp; @Model.CommentsCount Comment(s)</h2>
+
+
                 </div>
 
             </div>
@@ -119,10 +119,19 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/lib/noty/js/noty.min.js"></script>
+}
+
+@section Styles{ 
+    <link href="~/lib/noty/css/noty.css" rel="stylesheet" />
+}
+
+
 
 <script>
     $(window).on('load', function () {
-  
+
           var postId =@(Model.Id);
         getComments(postId, 0);
     });
@@ -143,9 +152,23 @@
             type: 'post',
             contentType: 'application/json',
             dataType: 'json',
-            success: function (data) {
+            success: function () {
+                new Noty({
+                    type: 'success',
+                    layout: 'topLeft',
+                    theme: 'mint',
+                    timeout: 5000,
+                    text: 'Your thought has been sent'
+                }).show();
             },
-            error: function (error) { }
+            error: function (err) {
+                new Noty({
+                    type: 'error',
+                    layout: 'topLeft',
+                    timeout: 5000,
+                    text: 'An error has been occured'
+                }).show();
+            }
         });
 
     });
