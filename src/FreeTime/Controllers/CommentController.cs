@@ -20,7 +20,7 @@ namespace FreeTime.Web.Controllers
 
         public async Task<IActionResult> Get(int postId, int page = 0)
         {
-            var comments = await Mediator.Send(new GetPostCommentsQuery(postId, page));
+            var comments = await Mediator.Send(new GetApprovedPostCommentsQuery(postId, page));
             return PartialView("_CommentsPartial",comments);
         }
     }

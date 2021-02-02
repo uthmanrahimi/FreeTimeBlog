@@ -111,6 +111,9 @@
 
 
                 </div>
+                <div class="col-12 hide" id="loadmore">
+                    <button class="btn btn-info btn-lg text-center" id="btnLoadMoreComments">Load more...</button>
+                </div>
 
             </div>
 
@@ -130,10 +133,10 @@
 
 
 <script>
+    var postId =@(Model.Id);
+    var pageIndex = 0;
     $(window).on('load', function () {
-
-          var postId =@(Model.Id);
-        getComments(postId, 0);
+        getComments(postId, pageIndex);
     });
 
     $(document).on('click', '#btnSend', function () {
@@ -173,6 +176,10 @@
 
     });
 
+    $(document).on('click', '#btnLoadMoreComments', function () {
+        getComments(postId,pageIndex);
+    });
+
     function getComments(postId, page) {
         var url = baseUrl + `api/comments/${postId}/${page}`;
         $.ajax({
@@ -182,8 +189,20 @@
             dataType: 'html',
             success: function (htmlResult) {
                 $("#comments").append(htmlResult);
+                if (htmlResult.trim().length == 0) {
+                    $("#btnLoadMoreComments").hide();
+                    new Noty({
+                        type: 'info',
+                        layout: 'topLeft',
+                        timeout: 5000,
+                        text: 'There is no more comments'
+                    }).show();
+                }
+                pageIndex++;
             },
             error: function (error) { }
         });
     }
+
+
 </script>
