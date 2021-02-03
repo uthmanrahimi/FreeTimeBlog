@@ -1,27 +1,23 @@
 ﻿using FreeTime.Domain.Entities;
 using FreeTime.Domain.Entities.Enums;
-using FreeTime.Web.Application.Flags;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FreeTime.Infrastructure.Mappings
 {
-    public class PostEntityMap : IEntityMap
+    public class PostEntityMap :IEntityTypeConfiguration<PostEntity>
     {
-        public PostEntityMap(ModelBuilder builder)
+        public void Configure(EntityTypeBuilder<PostEntity> builder)
         {
-            builder.Entity<PostEntity>(c =>
-            {
-                c.HasKey(p => p.Id);
-                c.ToTable("posts");
-                c.Property(p => p.Title).IsRequired();
-                c.Property(p => p.Slug).IsRequired();
-                c.Property(p => p.Description).IsRequired();
-                c.Property(p => p.CreatedOn).IsRequired();
-                c.Property(p => p.Status).IsRequired().HasDefaultValue(PostStatus.Draft);
-                //c.HasOne().WithMany().HasForeignKey(p => p.WriterId).IsRequired();
-                //TODO: FIX Above problem
-                
-            });
+           builder.HasKey(p => p.Id);
+           builder.ToTable("Posts");
+           builder.Property(p => p.Title).IsRequired();
+           builder.Property(p => p.Slug).IsRequired();
+           builder.Property(p => p.Description).IsRequired();
+           builder.Property(p => p.CreatedOn).IsRequired();
+            builder.Property(p => p.Status).IsRequired().HasDefaultValue(PostStatus.Draft);
+            //c.HasOne().WithMany().HasForeignKey(p => p.WriterId).IsRequired();
+            //TODO: FIX Above problem
         }
     }
 }

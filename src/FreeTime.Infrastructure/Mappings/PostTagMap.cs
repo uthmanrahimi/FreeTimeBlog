@@ -1,21 +1,18 @@
 ﻿
 using FreeTime.Domain.Entities;
-using FreeTime.Web.Application.Flags;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FreeTime.Application.Mappings
 {
-    public class PostTagMap : IEntityMap
+    public class PostTagMap : IEntityTypeConfiguration<PostTagEntity>
     {
-        public PostTagMap(ModelBuilder builder)
+        public void Configure(EntityTypeBuilder<PostTagEntity> builder)
         {
-            builder.Entity<PostTagEntity>(entity =>
-            {
-                entity.ToTable("PostTags");
-                entity.HasKey(e => new { e.PostId, e.TagId });
-                entity.HasOne(e => e.Post).WithMany(e => e.PostTags).HasForeignKey(c => c.PostId);
-                entity.HasOne(e => e.Tag).WithMany(e => e.Posts).HasForeignKey(c => c.TagId);
-            });
+            builder.ToTable("PostTags");
+            builder.HasKey(e => new { e.PostId, e.TagId });
+            builder.HasOne(e => e.Post).WithMany(e => e.PostTags).HasForeignKey(c => c.PostId);
+            builder.HasOne(e => e.Tag).WithMany(e => e.Posts).HasForeignKey(c => c.TagId);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using FreeTime.Application;
+﻿using FluentValidation.AspNetCore;
+using FreeTime.Application;
 using FreeTime.Application.Common.Interfaces;
+using FreeTime.Application.Features.Posts.Commands;
 using FreeTime.Infrastructure;
 using FreeTime.Web.Application;
 using FreeTime.Web.Application.Core;
@@ -49,7 +51,7 @@ namespace FreeTime
             services.Configure<BlogSettings>(Configuration.GetSection("Blog"));
             services.AddHealthChecks();
             services.AddRazorPages();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CreatePostCommand>());
             services.AddSingleton<IApplicationConfiguration, ApplicationConfiguration>();
         }
 

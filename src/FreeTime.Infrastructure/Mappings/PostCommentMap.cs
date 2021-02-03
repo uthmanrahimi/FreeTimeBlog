@@ -1,22 +1,19 @@
 ﻿using FreeTime.Domain.Entities;
-using FreeTime.Web.Application.Flags;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FreeTime.Infrastructure.Mappings
 {
-    public class PostCommentMap : IEntityMap
+    public class PostCommentMap :IEntityTypeConfiguration<PostCommentEntity>
     {
-        public PostCommentMap(ModelBuilder builder)
+        public void Configure(EntityTypeBuilder<PostCommentEntity> builder)
         {
-            builder.Entity<PostCommentEntity>(entity =>
-            {
-                entity.ToTable("Comments");
-                entity.Property(c => c.Content).IsRequired();
-                entity.Property(c => c.CreatedOn);
-                entity.Property(c => c.Email).IsRequired().HasMaxLength(50);
-                entity.Property(c => c.AuthorName).IsRequired().HasMaxLength(50);
-                entity.HasOne(c => c.Post).WithMany(c => c.Comments).HasForeignKey(c => c.PostId);
-            });
+            builder.ToTable("Comments");
+            builder.Property(c => c.Content).IsRequired();
+            builder.Property(c => c.CreatedOn);
+            builder.Property(c => c.Email).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.AuthorName).IsRequired().HasMaxLength(50);
+            builder.HasOne(c => c.Post).WithMany(c => c.Comments).HasForeignKey(c => c.PostId);
         }
     }
 }

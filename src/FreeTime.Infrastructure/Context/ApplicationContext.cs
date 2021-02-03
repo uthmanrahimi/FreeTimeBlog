@@ -1,12 +1,11 @@
 ﻿using FreeTime.Application.Common.Interfaces;
-using FreeTime.Application.Mappings;
 using FreeTime.Domain.Entities;
 using FreeTime.Infrastructure.Identity;
-using FreeTime.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,10 +28,32 @@ namespace FreeTime.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            new PostEntityMap(builder);
-            new TagEntityMap(builder);
-            new PostTagMap(builder);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            SeedUserAndRolesData(builder);
+        }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entities = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var entity in entities)
+            {
+                switch (entity.State)
+                {
+                    case EntityState.Deleted:
+                        break;
+                    case EntityState.Modified:
+                        break;
+                    case EntityState.Added:
+                        (entity.Entity).CreatedOn = DateTime.Now;
+                        break;
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SeedUserAndRolesData(ModelBuilder builder)
+        {
             builder.Entity<Role>(entity =>
             {
                 entity.HasData(
@@ -56,26 +77,6 @@ namespace FreeTime.Infrastructure.Context
                     new UserRole { UserId = 1, RoleId = 2 }
                     );
             });
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            var entities = ChangeTracker.Entries<BaseEntity>();
-
-            foreach (var entity in entities)
-            {
-                switch (entity.State)
-                {
-                    case EntityState.Deleted:
-                        break;
-                    case EntityState.Modified:
-                        break;
-                    case EntityState.Added:
-                        ((BaseEntity)entity.Entity).CreatedOn = DateTime.Now;
-                        break;
-                }
-            }
-            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

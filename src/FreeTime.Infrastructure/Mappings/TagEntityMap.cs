@@ -1,18 +1,16 @@
 ﻿using FreeTime.Domain.Entities;
-using FreeTime.Web.Application.Flags;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FreeTime.Infrastructure.Mappings
 {
-    public class TagEntityMap : IEntityMap
+    public class TagEntityMap :IEntityTypeConfiguration<TagEntity>
     {
-        public TagEntityMap(ModelBuilder builder)
+        public void Configure(EntityTypeBuilder<TagEntity> builder)
         {
-            builder.Entity<TagEntity>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(20);
-            });
+            builder.ToTable("Tags");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Name).IsRequired().HasMaxLength(20);
         }
     }
 }
