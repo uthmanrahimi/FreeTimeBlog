@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using FreeTime.Application.Common.ExtensionMethods;
 using FreeTime.Application.Common.Interfaces;
 using FreeTime.Application.Common.Models;
@@ -101,6 +102,23 @@ namespace FreeTime.Application.Features.Posts.Commands
                     var tag = new TagEntity { Name = item };
                     blogPost.PostTags.Add(new PostTagEntity { Tag = tag });
                 }
+            }
+        }
+
+        public class CreatePostCommandValidator: AbstractValidator<CreatePostCommand>
+        {
+            public CreatePostCommandValidator()
+            {
+                RuleFor(v => v.Title)
+                    .NotEmpty().WithMessage("Title is required")
+                ;
+            }
+
+            public async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)
+            {
+                //return await _context.TodoLists
+                //    .AllAsync(l => l.Title != title);
+                throw new NotImplementedException();
             }
         }
     }

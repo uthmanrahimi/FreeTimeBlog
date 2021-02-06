@@ -1,5 +1,6 @@
 ﻿using FreeTime.Application.Common.DTOs;
 using FreeTime.Application.Common.Interfaces;
+using FreeTime.Application.Features.Comments.Queries;
 using FreeTime.Application.Features.Posts.Commands;
 using FreeTime.Application.Features.Posts.Queries;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,7 @@ namespace FreeTime.Web.Controllers
         [HttpGet("index")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var result = await Mediator.Send(new GetPublishedPostsQuery(page,_configuration.PostsPerPage));
+            var result = await Mediator.Send(new GetPublishedPostsQuery(page, _configuration.PostsPerPage));
             ViewBag.PageOfItems = new StaticPagedList<PostDto>(result.Data, page, result.PerPage, result.Total);
             return View(result);
         }
@@ -103,6 +104,23 @@ namespace FreeTime.Web.Controllers
         {
             var result = await Mediator.Send(new GetAllPostsQuery(page, _configuration.PostsPerPage));
             ViewBag.PageOfItems = new StaticPagedList<PostListDto>(result.Data, page, result.PerPage, result.Total);
+            return View(result);
+        }
+
+        [Route("manage/comments",Name ="comments")]
+        [Authorize]
+        public async Task<IActionResult> Comments(int page = 1)
+        {
+            var result = await Mediator.Send(new GetCommentsQuery(page));
+            ViewBag.PageOfItems = new StaticPagedList<CommentDto>(result.Data, page, result.PerPage, result.Total);
+            return View(result);
+        }
+
+        [Route("/manage/comment/{commentId:int}",Name ="commentdetails")]
+        [Authorize]
+        public async Task<IActionResult> CommentDetails(int commentId)
+        {
+            var result = await Mediator.Send(new GetCommentQuery(commentId));
             return View(result);
         }
     }

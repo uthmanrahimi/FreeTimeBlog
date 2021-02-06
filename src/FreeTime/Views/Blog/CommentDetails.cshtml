@@ -1,0 +1,50 @@
+﻿@model CommentDto
+@{
+    ViewData["Title"] = "Comment Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="my-3 my-md-5">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                Comment Details
+            </h1>
+        </div>
+        <div class="row row-cards">
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <div class="card-subtitle">
+                                    <i class="fa fa-calendar"></i> @Model.CreatedDate.ToFriendlyDateString()
+                                </div>
+                                <div class="card-subtitle">
+                                    <i class="fa fa-user"></i>  @Model.AuthorName
+                                </div>
+                                <div class="card-subtitle ">
+                                    <span class="text-success @(Model.IsApproved?"":"d-none") red">Approved</span>
+                                    <span class="text-danger @(Model.IsApproved?"d-none":"")">Waiting</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        @Model.Content
+                    </div>
+
+                </div>
+            </div>
+
+
+
+                </div>
+            </div>
+</div>
