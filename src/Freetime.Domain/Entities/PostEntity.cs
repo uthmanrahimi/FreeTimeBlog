@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FreeTime.Domain.Entities
 {
+
     public class PostEntity : BaseEntity, IEntity
     {
         [Required]

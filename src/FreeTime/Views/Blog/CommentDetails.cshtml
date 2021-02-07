@@ -31,13 +31,32 @@
 
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-subtitle">
+                                    Approved : <input type="checkbox" asp-for="@Model.IsApproved" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary ml-auto" id="btnUpdateStatus">Save</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="card">
                     <div class="card-body">
-                        @Model.Content
+                        <div class="col-12">
+                            @Model.Content
+                        </div>
+                    </div>
+
+                    <div class="card-footer text-right">
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-primary ml-auto">Save</button>
+                        </div>
                     </div>
 
                 </div>
@@ -45,6 +64,30 @@
 
 
 
-                </div>
-            </div>
+        </div>
+    </div>
 </div>
+
+
+
+    <script>
+    var commentId =@(Model.Id);
+        $(document).on('click', '#btnUpdateStatus', function () {
+            var status = $("#IsApproved").is(":checked");
+            var url = baseUrl + `api/comments/updateStatus/${commentId}/${status}`;
+        $.ajax({
+            url: url,
+            type: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function () {
+              alert('statues has been updated!')
+            },
+            error: function (err) {
+                alert('An error has been occured.');
+            }
+        });
+
+    });
+
+    </script>

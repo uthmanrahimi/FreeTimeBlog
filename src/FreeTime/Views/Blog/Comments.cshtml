@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Posts</h3>
+                        <h3 class="card-title">Comments</h3>
                     </div>
                     <div class="table-responsive">
                         @if (!Model.Data.Any())
@@ -45,8 +45,6 @@
 
                                     @foreach (var item in Model.Data)
                                     {
-
-
                                         <tr>
                                             <td><a  class="text-reset">@item.AuthorName.SafeSubstring()</a></td>
                                             <td>

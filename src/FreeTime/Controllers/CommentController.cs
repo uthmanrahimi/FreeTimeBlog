@@ -21,7 +21,14 @@ namespace FreeTime.Web.Controllers
         public async Task<IActionResult> Get(int postId, int page = 0)
         {
             var comments = await Mediator.Send(new GetApprovedPostCommentsQuery(postId, page));
-            return PartialView("_CommentsPartial",comments);
+            return PartialView("_CommentsPartial", comments);
+        }
+
+        [HttpPost("updateStatus/{commentId}/{status}")]
+        public async Task<IActionResult> POST(int commentId, bool status)
+        {
+            await Mediator.Send(new UpdateCommentStatusCommand(commentId, status));
+            return NoContent();
         }
     }
 }
