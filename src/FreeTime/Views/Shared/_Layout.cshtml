@@ -39,26 +39,45 @@
                             @_applicationConfiguration.Title
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">
+
                             @{
                                 if (User.Identity.IsAuthenticated)
                                 {
                                     if (User.IsInRole(_applicationConfiguration.AdminRoleName))
                                     {
-                                        <div class="nav-item d-none d-md-flex">
-                                            <a asp-controller="blog" asp-action="create" class="btn btn-sm btn-outline-primary">New post</a>
-                                        </div>
 
-                                        <div class="nav-item d-none d-md-flex">
-                                            <a asp-controller="blog" asp-action="manage" class="btn btn-sm btn-blue">Manage posts</a>
+
+                                        <div class="dropdown show">
+                                            <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown" aria-expanded="true">
+                                                <span class="avatar">  <i class="dropdown-icon fe fe-image"></i></span>
+                                                <span class="ml-2 d-none d-lg-block">
+                                                    <span class="text-default">@_applicationConfiguration.OwnerName</span>
+                                                    <small class="text-muted d-block mt-1">Administrator</small>
+                                                </span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right " x-placement="bottom-end" style="position: absolute; transform: translate3d(-56px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                <a class="dropdown-item" asp-controller="blog" asp-action="manage">
+                                                    <i class="dropdown-icon fe fe-sliders"></i> Posts
+                                                </a>
+                                                <a class="dropdown-item"  asp-route="comments">
+                                                    <i class="dropdown-icon fe fe-command"></i> Comments
+                                                </a>
+                                              
+                                                <a  asp-controller="blog" asp-action="create" class="dropdown-item" >
+                                                    <i class="dropdown-icon fe fe-send"></i> New Post
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                               
+                                                <a class="dropdown-item" href="#">
+                                                    <form method="post" asp-controller="security" asp-action="logout">
+                                                        <input type="submit" value="LogOut" class="btn btn-sm btn-danger" />
+
+                                                    </form>
+                                                </a>
+                                            </div>
                                         </div>
                                     }
-                                    <div class="nav-item d-none d-md-flex">
-                                        <form method="post" asp-controller="security" asp-action="logout">
-
-                                            <input type="submit" value="LogOut" class="btn btn-sm btn-danger" />
-
-                                        </form>
-                                    </div>
+                                 
                                 }
                             }
 
