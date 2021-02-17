@@ -14,7 +14,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
 
-    <title>@ViewData["Title"] </title>
+    <title> @ViewData["Title"] </title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Dashboard Core -->
@@ -25,6 +25,8 @@
     <script src="~/js/vendors/jquery-3.2.1.min.js"></script>
     <script src="~/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="~/js/core.js"></script>
+    <script src="~/lib/noty/js/noty.min.js"></script>
+    <link href="~/lib/noty/css/noty.css" rel="stylesheet" />
     @RenderSection("Scripts", required: false)
     @RenderSection("Styles", required: false)
 
@@ -59,15 +61,15 @@
                                                 <a class="dropdown-item" asp-controller="blog" asp-action="manage">
                                                     <i class="dropdown-icon fe fe-sliders"></i> Posts
                                                 </a>
-                                                <a class="dropdown-item"  asp-route="comments">
+                                                <a class="dropdown-item" asp-route="comments">
                                                     <i class="dropdown-icon fe fe-command"></i> Comments
                                                 </a>
-                                              
-                                                <a  asp-controller="blog" asp-action="create" class="dropdown-item" >
+
+                                                <a asp-controller="blog" asp-action="create" class="dropdown-item">
                                                     <i class="dropdown-icon fe fe-send"></i> New Post
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                               
+
                                                 <a class="dropdown-item" href="#">
                                                     <form method="post" asp-controller="security" asp-action="logout">
                                                         <input type="submit" value="LogOut" class="btn btn-sm btn-danger" />
@@ -77,7 +79,7 @@
                                             </div>
                                         </div>
                                     }
-                                 
+
                                 }
                             }
 
@@ -169,3 +171,21 @@
     @RenderBody()
 </body>
 </html>
+
+@{
+    foreach (var error in Html.ViewContext.ModelState.Errors())
+    {
+        <text>
+            <script>
+              new Noty({
+                    type: 'error',
+                    layout: 'topLeft',
+                    theme: 'mint',
+                    timeout: 5000,
+                    text: '@error'
+                }).show();
+
+            </script>
+        </text>
+    }
+}

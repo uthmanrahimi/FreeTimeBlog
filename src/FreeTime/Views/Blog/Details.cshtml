@@ -114,13 +114,7 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <script src="~/lib/noty/js/noty.min.js"></script>
-}
 
-@section Styles{ 
-    <link href="~/lib/noty/css/noty.css" rel="stylesheet" />
-}
 
 
 
@@ -181,7 +175,7 @@
             dataType: 'html',
             success: function (htmlResult) {
                 $("#comments").append(htmlResult);
-                if (htmlResult.trim().length == 0) {
+                if (htmlResult.trim().length == 0 && page>0) {
                     $("#btnLoadMoreComments").hide();
                     new Noty({
                         type: 'info',

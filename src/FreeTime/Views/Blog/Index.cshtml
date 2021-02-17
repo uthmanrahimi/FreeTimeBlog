@@ -5,7 +5,7 @@
 @inject IApplicationConfiguration _configuration
  
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = _configuration.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

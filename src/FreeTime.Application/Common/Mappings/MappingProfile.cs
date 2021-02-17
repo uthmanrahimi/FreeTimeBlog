@@ -17,7 +17,8 @@ namespace FreeTime.Application.Common.Mappings
             CreateMap<CreatePostCommand, PostEntity>();
             CreateMap<PostEntity, PostDto>()
                 .ForMember(dest => dest.TagList, src => src.MapFrom(t => t.PostTags.Select(x => x.Tag).Select(x => x.Name)))
-                .ForMember(dest=>dest.CommentsCount,src=>src.MapFrom(c=>c.Comments.Count(comment=>comment.IsApproved)))
+                .ForMember(dest => dest.Tags, src => src.MapFrom(t => string.Join(';', t.PostTags.Select(x => x.Tag).Select(x => x.Name))))
+                .ForMember(dest => dest.CommentsCount, src => src.MapFrom(c => c.Comments.Count(comment => comment.IsApproved)))
                 ;
 
             CreateMap<UpdatePostCommand, PostEntity>().ForMember(dest => dest.CreatedOn, opt => opt.Ignore())
@@ -33,6 +34,8 @@ namespace FreeTime.Application.Common.Mappings
 
             CreateMap<PostCommentEntity, CommentDto>()
                 .ForMember(dest => dest.CreatedDate, src => src.MapFrom(s => s.CreatedOn));
+
+            CreateMap<UpdatePostCommand, PostDto>();
         }
     }
 }

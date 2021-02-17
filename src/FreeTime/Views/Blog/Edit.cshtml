@@ -1,13 +1,13 @@
 ﻿@model PostDto
 @{
-    ViewData["Title"] = "Edit " + Model.Title;
+    ViewData["Title"] = "Edit " + Model.Title ?? "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Scripts{
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ubo7yvv9j1n7gkdslv0zs0cd0rur0yu11z3rju2ii1lf7nh8"></script>
     <script>
-    tinymce.init({
+        tinymce.init({
             selector: 'textarea',
             height: 500,
             width: 800,

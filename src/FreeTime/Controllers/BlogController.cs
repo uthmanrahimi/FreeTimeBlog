@@ -1,4 +1,5 @@
-﻿using FreeTime.Application.Common.DTOs;
+﻿using AutoMapper;
+using FreeTime.Application.Common.DTOs;
 using FreeTime.Application.Common.Interfaces;
 using FreeTime.Application.Features.Comments.Queries;
 using FreeTime.Application.Features.Posts.Commands;
@@ -14,10 +15,12 @@ namespace FreeTime.Web.Controllers
     public class BlogController : BaseController
     {
         private readonly IApplicationConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public BlogController(IApplicationConfiguration configuration)
+        public BlogController(IApplicationConfiguration configuration, IMapper mapper)
         {
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
@@ -81,10 +84,12 @@ namespace FreeTime.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id, UpdatePostCommand command)
         {
+            if (!ModelState.IsValid)
+                return View(_mapper.Map<PostDto>(command));
             var result = await Mediator.Send(command);
             if (result.Succeeded)
                 return RedirectToAction("manage");
-            return View(result.ToString());
+            return View(_mapper.Map<PostDto>(command));
         }
 
 
@@ -107,7 +112,7 @@ namespace FreeTime.Web.Controllers
             return View(result);
         }
 
-        [Route("manage/comments",Name ="comments")]
+        [Route("manage/comments", Name = "comments")]
         [Authorize]
         public async Task<IActionResult> Comments(int page = 1)
         {
@@ -116,7 +121,7 @@ namespace FreeTime.Web.Controllers
             return View(result);
         }
 
-        [Route("/manage/comment/{commentId:int}",Name ="commentdetails")]
+        [Route("/manage/comment/{commentId:int}", Name = "commentdetails")]
         [Authorize]
         public async Task<IActionResult> CommentDetails(int commentId)
         {

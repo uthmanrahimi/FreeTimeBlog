@@ -21,7 +21,7 @@ namespace FreeTime.Application.Features.Posts.Commands
         public string Tags { get; set; }
         public string Title { get; set; }
         public int WriterId { get; set; }
-        public PostStatus  Status { get; set; }
+        public PostStatus Status { get; set; }
 
         public class PostHandler : IRequestHandler<CreatePostCommand, bool>,
                              IRequestHandler<UpdatePostCommand, OperationResult>
@@ -105,20 +105,23 @@ namespace FreeTime.Application.Features.Posts.Commands
             }
         }
 
-        public class CreatePostCommandValidator: AbstractValidator<CreatePostCommand>
+        public class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
         {
-            public CreatePostCommandValidator()
+            private readonly IDataContext _dataContext;
+
+            public CreatePostCommandValidator(IDataContext dataContext)
             {
-                RuleFor(v => v.Title)
-                    .NotEmpty().WithMessage("Title is required")
-                ;
+                RuleFor(v => v.Title).MustAsync(BeUniqueTitle).WithMessage("Title must be unique")
+                    .NotEmpty().WithMessage("Title is required");
+                RuleFor(r => r.Description).NotEmpty().WithMessage("Post Content is Required").MinimumLength(100);
+                RuleFor(r => r.Tags).NotEmpty().NotNull().WithMessage("At least one tag is required");
+                _dataContext = dataContext;
             }
 
             public async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)
             {
-                //return await _context.TodoLists
-                //    .AllAsync(l => l.Title != title);
-                throw new NotImplementedException();
+                return await _dataContext.Posts
+                    .AllAsync(l => l.Title != title);
             }
         }
     }
