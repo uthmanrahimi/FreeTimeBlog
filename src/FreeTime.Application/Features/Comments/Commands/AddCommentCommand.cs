@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using FreeTime.Application.Common.Interfaces;
 using FreeTime.Domain.Entities;
 using MediatR;
@@ -11,7 +12,7 @@ namespace FreeTime.Application.Features.Comments.Commands
     {
         public string Email { get; set; }
         public string Content { get; set; }
-        public string AuthorName { get; set; }
+        public string Name { get; set; }
         public int PostId { get; set; }
 
 
@@ -32,6 +33,18 @@ namespace FreeTime.Application.Features.Comments.Commands
                 await _dataContext.Comments.AddAsync(comment);
                 await _dataContext.SaveChangesAsync(cancellationToken);
                 return Unit.Task.Result;
+            }
+        }
+
+        public class AddCommentCommandValidation : AbstractValidator<AddCommentCommand>
+        {
+            public AddCommentCommandValidation()
+            {
+                RuleFor(x => x.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).WithMessage("Email Address is not correct")
+                    .NotEmpty().NotNull().WithMessage("Email Address is required");
+                RuleFor(x => x.PostId).NotEqual(0).WithMessage("Post not found");
+                RuleFor(x => x.Content).NotNull().NotEmpty().WithMessage("Content is required");
+                RuleFor(x => x.Name).NotEmpty().NotNull().WithMessage("Name is required");
             }
         }
     }

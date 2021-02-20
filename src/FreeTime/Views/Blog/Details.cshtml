@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
             <div class="col-lg-9">
@@ -74,20 +74,20 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" id="txtName">
+                                    <input type="text" class="form-control" placeholder="Name" id="txtName" required>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Email address</label>
-                                    <input type="email" class="form-control" placeholder="Email" id="txtEmail">
+                                    <input type="email" class="form-control" placeholder="Email" id="txtEmail" required>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group mb-0">
                                     <label class="form-label">Thought</label>
-                                    <textarea rows="5" class="form-control" placeholder="Here can be your thought" id="txtContent"></textarea>
+                                    <textarea rows="5" class="form-control" placeholder="Here can be your thought" id="txtContent" required></textarea>
                                 </div>
                                 <div></div>
                             </div>
@@ -127,6 +127,7 @@
 
     $(document).on('click', '#btnSend', function () {
         var postId =@(Model.Id);
+
         var model = {
             authorname: $('#txtName').val(),
             email: $('#txtEmail').val(),
@@ -151,12 +152,22 @@
                 }).show();
             },
             error: function (err) {
-                new Noty({
-                    type: 'error',
-                    layout: 'topLeft',
-                    timeout: 5000,
-                    text: 'An error has been occured'
-                }).show();
+                if (err.status == 400) {
+                    new Noty({
+                        type: 'error',
+                        layout: 'topLeft',
+                        timeout: 5000,
+                        text: err.responseText
+                    }).show();
+                }
+                else {
+                    new Noty({
+                        type: 'error',
+                        layout: 'topLeft',
+                        timeout: 5000,
+                        text: 'An error has been occured'
+                    }).show();
+                }
             }
         });
 

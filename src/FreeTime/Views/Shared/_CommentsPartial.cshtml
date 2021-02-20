@@ -5,9 +5,9 @@
 {
     <div class="card">
         <div class="card-body">
-            <p>
-                @Html.Raw(comment.Content)
-            </p>
+            
+               @comment.Content
+            
         </div>
         <div class="card-footer">
             <i class="fa fa-user"></i> @comment.AuthorName &nbsp;  <i class="fa fa-clock-o"></i> @comment.CreatedDate.ToFriendlyDateString()
