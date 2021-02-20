@@ -33,5 +33,12 @@ namespace FreeTime.Web.Controllers
             await Mediator.Send(new UpdateCommentStatusCommand(commentId, status));
             return NoContent();
         }
+
+        [HttpDelete("{commentId:int}")]
+        public async Task<IActionResult> Delete(int commentId)
+        {
+            await Mediator.Send(new DeleteCommentCommand(commentId));
+            return NoContent();
+        }
     }
 }

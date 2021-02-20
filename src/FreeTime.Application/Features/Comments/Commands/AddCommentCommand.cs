@@ -12,7 +12,7 @@ namespace FreeTime.Application.Features.Comments.Commands
     {
         public string Email { get; set; }
         public string Content { get; set; }
-        public string Name { get; set; }
+        public string AuthorName { get; set; }
         public int PostId { get; set; }
 
 
@@ -44,7 +44,7 @@ namespace FreeTime.Application.Features.Comments.Commands
                     .NotEmpty().NotNull().WithMessage("Email Address is required");
                 RuleFor(x => x.PostId).NotEqual(0).WithMessage("Post not found");
                 RuleFor(x => x.Content).NotNull().NotEmpty().WithMessage("Content is required");
-                RuleFor(x => x.Name).NotEmpty().NotNull().WithMessage("Name is required");
+                RuleFor(x => x.AuthorName).NotEmpty().WithMessage("Name is required");
             }
         }
     }

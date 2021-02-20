@@ -3,7 +3,8 @@
     deletePost(id);
 });
 
-function deletePost(id) {
+function deleteRecord(id,url){
+
     Swal.fire({
         title: 'Are you sure to delete this item?',
         inputAttributes: {
@@ -14,7 +15,7 @@ function deletePost(id) {
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
             $.ajax({
-                url: `${baseUrl}api/blog/${id}`,
+                url:url,
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json"
@@ -48,4 +49,13 @@ function deletePost(id) {
             })
         }
     })
+
+}
+
+function deletePost(id) {
+    deleteRecord(id, `${baseUrl}api/blog/${id}`);
+}
+
+function deleteComment(id) {
+    deleteRecord(id, `${baseUrl}api/comments/${id}`);
 }
