@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Web", "src\FreeTime\FreeTime.Web.csproj", "{00788D4E-93F6-4772-93C6-CEE83876811E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Tests", "tests\FreeTime.Tests\FreeTime.Tests.csproj", "{864516E3-41D8-4EED-822B-61F2BE27ADA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Application.UnitTests", "tests\FreeTime.Tests\FreeTime.Application.UnitTests.csproj", "{864516E3-41D8-4EED-822B-61F2BE27ADA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTime.Domain", "src\Freetime.Domain\FreeTime.Domain.csproj", "{0DE79382-90D5-4E74-9D8C-C8BEC5E2398C}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71DC4291-ED02-46D4-854D-8BD936A7F55B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D7AC2933-1021-4959-8104-6E345DEAD9B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime.Application.IntegrationTests", "tests\FreeTime.Application.IntegrationTests\FreeTime.Application.IntegrationTests.csproj", "{F06AC885-C58D-4F07-AB24-D97388205B74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{CE89E715-A9A4-4B79-8302-B6E84856BD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE89E715-A9A4-4B79-8302-B6E84856BD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE89E715-A9A4-4B79-8302-B6E84856BD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F06AC885-C58D-4F07-AB24-D97388205B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F06AC885-C58D-4F07-AB24-D97388205B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F06AC885-C58D-4F07-AB24-D97388205B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F06AC885-C58D-4F07-AB24-D97388205B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{0DE79382-90D5-4E74-9D8C-C8BEC5E2398C} = {71DC4291-ED02-46D4-854D-8BD936A7F55B}
 		{26586A81-F033-4002-9F40-E4C567CCB541} = {71DC4291-ED02-46D4-854D-8BD936A7F55B}
 		{CE89E715-A9A4-4B79-8302-B6E84856BD0F} = {71DC4291-ED02-46D4-854D-8BD936A7F55B}
+		{F06AC885-C58D-4F07-AB24-D97388205B74} = {D7AC2933-1021-4959-8104-6E345DEAD9B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {994A7E95-0106-4791-9F38-4B349971D5D1}
