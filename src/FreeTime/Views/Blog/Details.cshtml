@@ -35,7 +35,7 @@
 
                                             @foreach (var tag in Model.TagList)
                                             {
-                                                <div class="item"><a asp-action="category" asp-route-category="@tag">@tag</a> </div>
+                                                <div class="item"><a asp-action="category" asp-route-category="@tag">#@tag</a> </div>
                                             }
                                         </div>
                                     </div>

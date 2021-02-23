@@ -1,0 +1,26 @@
+﻿@model IEnumerable<KeyValuePair<string, int>>
+@{ 
+    ViewData["Title"] = "Most Used Categories";
+}
+<div class="my-3 my-md-5">
+    <div class="container">
+
+        <div class="row row-cards">
+
+            @foreach (var tag in Model)
+            {
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <div class="card">
+                        <div class="card-body p-3 text-center">
+                            <div class="h1 m-0">   <a asp-controller="blog" asp-action="category" asp-route-category="@tag.Key">@tag.Key </a></div>
+                            <div class="text-muted mb-4">@tag.Value</div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
