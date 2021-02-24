@@ -36,6 +36,7 @@ namespace FreeTime.Application.Common.Mappings
                 .ForMember(dest => dest.CreatedDate, src => src.MapFrom(s => s.CreatedOn));
 
             CreateMap<UpdatePostCommand, PostDto>();
+            CreateMap<ProfileEntity, ProfileDto>();
         }
     }
 }

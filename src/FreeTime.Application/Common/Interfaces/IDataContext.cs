@@ -11,7 +11,7 @@ namespace FreeTime.Application.Common.Interfaces
         public DbSet<TagEntity> Tags { get; set; }
         public DbSet<PostTagEntity> PostTags { get; set; }
         public DbSet<PostCommentEntity> Comments { get; set; }
-
+        public DbSet<ProfileEntity> Profile { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
