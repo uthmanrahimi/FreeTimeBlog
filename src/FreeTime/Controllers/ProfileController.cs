@@ -1,8 +1,10 @@
 ﻿using FreeTime.Application.Features.Profile.Queries;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FreeTime.Web.Controllers
 {
+    [Route("Profile")]
     public class ProfileController : BaseController
     {
         public ProfileController()
@@ -10,9 +12,11 @@ namespace FreeTime.Web.Controllers
 
         }
 
-        public IActionResult Index()
+
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
         {
-            var result = Mediator.Send(new GetProfileQuery());
+            var result =await Mediator.Send(new GetProfileQuery());
             return View(result);
         }
     }

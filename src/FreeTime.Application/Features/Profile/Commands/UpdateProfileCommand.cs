@@ -33,8 +33,8 @@ namespace FreeTime.Application.Features.Profile.Commands
 
         public async Task<Unit> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
         {
-            var profile = await _context.Profile.SingleOrDefaultAsync();
-            profile = _mapper.Map<ProfileEntity>(request);
+            var profile = await _context.Profile.SingleOrDefaultAsync(x => x.Id==1);
+            _mapper.Map<UpdateProfileCommand,ProfileEntity>(request,profile);
             _context.Profile.Update(profile);
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;

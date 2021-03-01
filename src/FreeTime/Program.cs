@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using FreeTime.Application.Common.Interfaces;
+using FreeTime.Infrastructure.Context;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FreeTime
 {
@@ -7,7 +10,16 @@ namespace FreeTime
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetService<IDataContext>();
+                ApplicationDbContextSeed.Seed(context);
+            }
+
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

@@ -81,9 +81,16 @@ namespace FreeTime
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapControllerRoute(
+              name: "admin",
+              pattern: "{area=Admin}/{controller}/{action}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Blog}/{action=Index}/{id?}");
+
+             
             });
         }
     }

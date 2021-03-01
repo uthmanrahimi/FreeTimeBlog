@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FreeTime.Web.Controllers
 {
+    [Route("Security")]
     public class SecurityController : Controller
     {
         private readonly IIdentityService _identityService;
@@ -16,13 +17,13 @@ namespace FreeTime.Web.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
 
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -38,13 +39,13 @@ namespace FreeTime.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet("register")]
         public IActionResult Register()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsNotValid())
@@ -60,7 +61,7 @@ namespace FreeTime.Web.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("logout")]
         public async Task<IActionResult> LogOut()
         {
             await _identityService.LogOutAsync();

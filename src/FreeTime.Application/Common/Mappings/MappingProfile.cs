@@ -4,6 +4,7 @@ using FreeTime.Application.Common.DTOs;
 using FreeTime.Application.Common.DTOs.Posts;
 using FreeTime.Application.Features.Comments.Commands;
 using FreeTime.Application.Features.Posts.Commands;
+using FreeTime.Application.Features.Profile.Commands;
 using FreeTime.Domain.Entities;
 
 using System.Linq;
@@ -37,6 +38,8 @@ namespace FreeTime.Application.Common.Mappings
 
             CreateMap<UpdatePostCommand, PostDto>();
             CreateMap<ProfileEntity, ProfileDto>();
+            CreateMap<ProfileDto, UpdateProfileCommand>();
+            CreateMap<UpdateProfileCommand, ProfileEntity>().ForMember(x => x.Id, opt => opt.Ignore());
         }
     }
 }

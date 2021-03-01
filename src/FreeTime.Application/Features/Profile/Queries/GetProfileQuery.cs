@@ -25,7 +25,7 @@ namespace FreeTime.Application.Features.Profile.Queries
 
         public async Task<ProfileDto> Handle(GetProfileQuery request, CancellationToken cancellationToken)
         {
-            var profile = await _dataContext.Profile.SingleOrDefaultAsync();
+            var profile = await _dataContext.Profile.SingleOrDefaultAsync(x => x.Id == 1);
             return _mapper.Map<ProfileDto>(profile);
         }
     }

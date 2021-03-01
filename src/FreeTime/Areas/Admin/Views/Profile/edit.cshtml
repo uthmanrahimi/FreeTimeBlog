@@ -1,0 +1,82 @@
+﻿@model ProfileDto
+
+@{
+    Layout = "_Layout";
+}
+
+@section Scripts{
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ubo7yvv9j1n7gkdslv0zs0cd0rur0yu11z3rju2ii1lf7nh8"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            width: 800,
+            plugins: "image",
+            toolbar: 'image',
+            paste_data_images: true,
+            images_upload_url: '/api/images'
+        });</script>
+
+}
+
+
+<div class="my-3 my-md-5">
+    <div class="container">
+        <form class="card" asp-area="admin" asp-controller="profile" asp-action="update" method="post">
+            <div class="card-body">
+                <h3 class="card-title">Edit Profile</h3>
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" asp-for="@Model.Name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" asp-for="@Model.JobTitle">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Github Profile</label>
+                            <input type="text" class="form-control" asp-for="@Model.GithubProfile">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Linkedin Profile</label>
+                            <input type="text" class="form-control" asp-for="@Model.LinkedinProfile">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Twitter Profile</label>
+                            <input type="text" class="form-control" asp-for="@Model.TwitterProfile">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Stack Over-flow Profile</label>
+                            <input type="text" class="form-control" asp-for="@Model.StackOverflowProfile">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group mb-0">
+                            <label class="form-label">About Me</label>
+                            <textarea rows="5" class="form-control" asp-for="@Model.About"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </div>
+        </form>
+
+    </div>
+</div>

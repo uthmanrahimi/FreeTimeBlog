@@ -46,7 +46,7 @@ namespace FreeTime.Web.Controllers
             return Ok(result);
         }
 
-
+        [HttpGet("category")]
         public async Task<IActionResult> Category(string category, int page = 1)
         {
             var result = await Mediator.Send(new GetPostsByCategoryQuery(category, page));

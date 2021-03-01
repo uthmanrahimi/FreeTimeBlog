@@ -8,9 +8,10 @@ namespace FreeTime.Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<ProfileEntity> builder)
         {
+            builder.HasKey(p => p.Id);
             builder.ToTable("Profile");
-            builder.Property(p=>p.Name).IsRequired().HasMaxLength(100);
-            builder.Property(p=>p.JobTitle).HasMaxLength(250);
+            builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.JobTitle).HasMaxLength(250);
         }
     }
 }
