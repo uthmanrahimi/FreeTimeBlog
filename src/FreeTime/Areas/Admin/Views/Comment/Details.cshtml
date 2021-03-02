@@ -74,7 +74,7 @@
     var commentId =@(Model.Id);
         $(document).on('click', '#btnUpdateStatus', function () {
             var status = $("#IsApproved").is(":checked");
-            var url = baseUrl + `api/comments/updateStatus/${commentId}/${status}`;
+            var url = baseUrl + `admin/comment/updateStatus/${commentId}/${status}`;
         $.ajax({
             url: url,
             type: 'post',

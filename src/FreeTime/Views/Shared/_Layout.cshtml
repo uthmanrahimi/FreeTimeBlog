@@ -58,17 +58,17 @@
                                                 </span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right " x-placement="bottom-end" style="position: absolute; transform: translate3d(-56px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                <a class="dropdown-item" asp-controller="blog" asp-action="manage">
+                                                <a class="dropdown-item" asp-area="admin" asp-controller="post" asp-action="index">
                                                     <i class="dropdown-icon fe fe-sliders"></i> Posts
                                                 </a>
-                                                <a class="dropdown-item" asp-route="comments">
+                                                <a class="dropdown-item" asp-area="admin" asp-controller="comment" asp-action="index">
                                                     <i class="dropdown-icon fe fe-command"></i> Comments
                                                 </a>
                                                 <a class="dropdown-item" asp-area="admin" asp-controller="profile" asp-action="edit">
                                                     <i class="dropdown-icon fe fe-info"></i> Profile
                                                 </a>
 
-                                                <a asp-controller="blog" asp-action="create" class="dropdown-item">
+                                                <a asp-area="admin" asp-controller="post" asp-action="create" class="dropdown-item">
                                                     <i class="dropdown-icon fe fe-send"></i> New Post
                                                 </a>
                                                 <div class="dropdown-divider"></div>

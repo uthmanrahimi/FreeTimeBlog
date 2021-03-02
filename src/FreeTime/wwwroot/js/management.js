@@ -53,9 +53,9 @@ function deleteRecord(id,url){
 }
 
 function deletePost(id) {
-    deleteRecord(id, `${baseUrl}api/blog/${id}`);
+    deleteRecord(id, `${baseUrl}admin/post/${id}`);
 }
 
 function deleteComment(id) {
-    deleteRecord(id, `${baseUrl}api/comments/${id}`);
+    deleteRecord(id, `${baseUrl}admin/comment/${id}`);
 }

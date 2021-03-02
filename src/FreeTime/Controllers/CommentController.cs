@@ -27,18 +27,5 @@ namespace FreeTime.Web.Controllers
             return PartialView("_CommentsPartial", comments);
         }
 
-        [HttpPost("updateStatus/{commentId}/{status}")]
-        public async Task<IActionResult> POST(int commentId, bool status)
-        {
-            await Mediator.Send(new UpdateCommentStatusCommand(commentId, status));
-            return NoContent();
-        }
-
-        [HttpDelete("{commentId:int}")]
-        public async Task<IActionResult> Delete(int commentId)
-        {
-            await Mediator.Send(new DeleteCommentCommand(commentId));
-            return NoContent();
-        }
     }
 }

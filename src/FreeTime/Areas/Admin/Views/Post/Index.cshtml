@@ -1,26 +1,28 @@
-﻿@model Envelope<IEnumerable<CommentDto>>
+﻿@model Envelope<IEnumerable<PostListDto>>
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 
 @{
-    ViewData["Title"] = "Comments";
+    ViewData["Title"] = "Manage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Scripts{
+
+
     <script src="~/js/management.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 }
 <div class="my-3 my-md-5">
     <div class="container">
 
-        <h2>Comments</h2>
+        <h2>Manage</h2>
 
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Comments</h3>
+                        <h3 class="card-title">Posts</h3>
                     </div>
                     <div class="table-responsive">
                         @if (!Model.Data.Any())
@@ -32,9 +34,14 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+
+                                        <th class="w-1p">No.</th>
+                                        <th>Subject</th>
+
+
                                         <th>Created</th>
                                         <th>Status</th>
+                                        <th>Viewed</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -43,18 +50,23 @@
 
                                     @foreach (var item in Model.Data)
                                     {
+
+
                                         <tr id="@item.Id">
-                                            <td><a class="text-reset">@item.AuthorName.SafeSubstring()</a></td>
+
+                                            <td><span class="text-muted">@item.Id</span></td>
+                                            <td><a asp-controller="blog" asp-action="details" asp-route-id="@item.Id" class="text-reset">@item.Title.SafeSubstring()</a></td>
+
                                             <td>
-                                                @item.CreatedDate.ToFriendlyDateString()
+                                                @item.CreatedAt
                                             </td>
                                             <td>
-                                                <span class="text-success @(item.IsApproved?"":"d-none") red">Approved</span>
-                                                <span class="text-danger @(item.IsApproved?"d-none":"")">Waiting</span>
+                                                <span class="status-icon @(item.Status==PostStatus.Draft?"bg-warning":"bg-success") "></span> @item.Status
                                             </td>
+                                            <td>@item.ViewCount</td>
                                             <td class="text-right">
-                                                <a class="icon" asp-route="commentdetails" asp-route-commentId="@item.Id"><i class="fe fe-edit"></i></a>
-                                                <a class="icon btn-delete-comment" data-id="@item.Id" onclick="deleteComment(@item.Id)"><i class="fe fe-trash"></i></a>
+                                                <a class="icon" asp-action="edit" asp-route-id="@item.Id"><i class="fe fe-edit"></i></a>
+                                                <a class="icon btn-delete-post" data-id="@item.Id"><i class="fe fe-trash"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -63,7 +75,7 @@
                         }
                     </div>
                     <div class="card-footer d-flex align-items-center">
-                        @Html.PagedListPager((IPagedList)ViewBag.PageOfItems, page => Url.RouteUrl("comments", new { page }), new X.PagedList.Mvc.Common.PagedListRenderOptionsBase { PageClasses = new[] { "page-link" }, ActiveLiElementClass = "active", LiElementClasses = new[] { "page-item" }, DisplayEllipsesWhenNotShowingAllPageNumbers = true })
+                        @Html.PagedListPager((IPagedList)ViewBag.PageOfItems, page => Url.Action("index", new { page }), new X.PagedList.Mvc.Common.PagedListRenderOptionsBase { PageClasses = new[] { "page-link" }, ActiveLiElementClass = "active", LiElementClasses = new[] { "page-item" }, DisplayEllipsesWhenNotShowingAllPageNumbers = true })
                     </div>
                 </div>
 
@@ -71,3 +83,4 @@
         </div>
     </div>
 </div>
+

@@ -10,7 +10,7 @@ namespace FreeTime.Web.Areas.Admin.Controllers
 {
     [Route("admin/profile")]
     [Area("admin")]
-    public class ProfileController : BaseController
+    public class ProfileController : ProtectedController
     {
         private readonly IMapper _mapper;
 

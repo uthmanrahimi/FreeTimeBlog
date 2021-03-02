@@ -31,7 +31,8 @@ namespace FreeTime.Web.Controllers
             {
                 return View(model);
             }
-            var result = await _identityService.SignInAsync(model.UserName, model.Password, model.RememberMe, true);// _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+
+            var result = await _identityService.SignInAsync(model.UserName, model.Password, model.RememberMe, true);
             if (result.Succeeded)
                 return RedirectToAction("Index", "Blog");
 

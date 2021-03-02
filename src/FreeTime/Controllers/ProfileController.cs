@@ -7,12 +7,6 @@ namespace FreeTime.Web.Controllers
     [Route("Profile")]
     public class ProfileController : BaseController
     {
-        public ProfileController()
-        {
-
-        }
-
-
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
