@@ -2,6 +2,10 @@
 Freetime is a simple and single-user personal blog, written in Asp.NET Core. 
 > Freetime follows  `Clean Architecture`'s best practices.
 
+# Demo
+![freetimeblog-template](https://user-images.githubusercontent.com/45357615/115946166-95e88e00-a4d4-11eb-9007-4fd73bb346b0.png)
+-- 
+
 
 # Getting Started
 * Clone or download source code
